@@ -16,6 +16,7 @@
         "cakephp/cakephp-codesniffer": "^4.5",
         "cakephp/debug_kit": "^4.9",
         "josegonzalez/dotenv": "^4.0",
+        "phpmd/phpmd" : "@stable",
         "phpunit/phpunit": "^9.6"
     },
     "suggest": {
@@ -40,10 +41,12 @@
         "post-create-project-cmd": "App\\Console\\Installer::postInstall",
         "check": [
             "@test",
-            "@cs-check"
+            "@cs-check",
+            "@md-check"
         ],
         "cs-check": "phpcs --colors -p",
         "cs-fix": "phpcbf --colors -p",
+        "md-check": "phpmd src text phpmd.xml",
         "test": "phpunit --colors=always"
     },
     "minimum-stability": "dev",
