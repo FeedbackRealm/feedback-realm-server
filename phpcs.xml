@@ -1,9 +1,14 @@
 <?xml version="1.0"?>
-<ruleset name="App">
+<ruleset name="AXMCakePHP">
     <config name="installed_paths" value="../../cakephp/cakephp-codesniffer"/>
-
-    <rule ref="CakePHP"/>
 
     <file>src/</file>
     <file>tests/</file>
+    <file>plugins/</file>
+    <file>config/</file>
+
+    <rule ref="CakePHP">
+        <include name="SlevomatCodingStandard.Namespaces.FullyQualifiedExceptionsSniff"/>
+        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation"/>
+    </rule>
 </ruleset>

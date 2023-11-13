@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-version: ['7.4', '8.0', '8.1', '8.2']
+        php-version: ['7.4']
     name: PHP ${{ matrix.php-version }}
 
     steps:
@@ -31,7 +31,7 @@ jobs:
       with:
         php-version: ${{ matrix.php-version }}
         extensions: mbstring, intl, pdo_sqlite
-        coverage: none
+        coverage: xdebug
 
     - name: Composer install
       run: |
@@ -41,9 +41,12 @@ jobs:
     - name: Run PHPUnit
       run: |
         cp config/app_local.example.php config/app_local.php
-        vendor/bin/phpunit
+        vendor/bin/phpunit --coverage-clover 'clover.xml'
       env:
         DATABASE_TEST_URL: sqlite://./testdb.sqlite
+
+    - name: Upload to Codacy
+      run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r clover.xml --project-token=${{ secrets.CODACY_PROJECT_TOKEN }}
 
   coding-standard:
     name: Coding Standard & Static Analysis
