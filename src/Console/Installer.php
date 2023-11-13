@@ -14,6 +14,7 @@ declare(strict_types=1);
  * @since     3.0.0
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App\Console;
 
 if (!defined('STDIN')) {
@@ -49,8 +50,8 @@ class Installer
      * Does some routine installation tasks so people don't have to.
      *
      * @param \Composer\Script\Event $event The composer event object.
-     * @throws \Exception Exception raised by validator.
      * @return void
+     * @throws Exception Exception raised by validator.
      */
     public static function postInstall(Event $event)
     {
@@ -73,15 +74,15 @@ class Installer
      * Create config/app_local.php file if it does not exist.
      *
      * @param string $dir The application's root directory.
-     * @param \Composer\IO\IOInterface $io IO interface to write to console.
+     * @param IOInterface $io IO interface to write to console.
      * @return void
      */
     public static function createAppLocalConfig($dir, $io)
     {
         $appLocalConfig = $dir . '/config/app_local.php';
-        $appLocalConfigTemplate = $dir . '/config/app_local.example.php';
+        $appLocalConfigTpl = $dir . '/config/app_local.example.php';
         if (!file_exists($appLocalConfig)) {
-            copy($appLocalConfigTemplate, $appLocalConfig);
+            copy($appLocalConfigTpl, $appLocalConfig);
             $io->write('Created `config/app_local.php` file');
         }
     }
