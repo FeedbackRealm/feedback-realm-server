@@ -10,5 +10,6 @@
     <rule ref="CakePHP">
         <include name="SlevomatCodingStandard.Namespaces.FullyQualifiedExceptionsSniff"/>
         <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation"/>
+        <exclude name="SlevomatCodingStandard.Namespaces.UnusedUses.UnusedUse"/>
     </rule>
 </ruleset>
