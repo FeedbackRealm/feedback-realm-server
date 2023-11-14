@@ -22,6 +22,6 @@ class TableBase extends Table
     public function initialize(array $config): void
     {
         parent::initialize($config);
-        $this->addBehavior('Muffin/Trash.Trash');
+        $this->addBehavior('Muffin/Trash.Trash', ['field' => 'deleted']);
     }
 }
