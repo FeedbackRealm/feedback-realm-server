@@ -16,6 +16,8 @@ declare(strict_types=1);
 
 namespace App\View;
 
+use App\View\Helper\HtmlEmailContentHelper;
+use App\View\Helper\TextEmailContentHelper;
 use Cake\View\View;
 
 /**
@@ -24,6 +26,8 @@ use Cake\View\View;
  * Your application's default view class
  *
  * @link https://book.cakephp.org/4/en/views.html#the-app-view
+ * @property-read HtmlEmailContentHelper $HtmlEmailContent
+ * @property-read TextEmailContentHelper $TextEmailContent
  */
 class AppView extends View
 {
@@ -38,5 +42,7 @@ class AppView extends View
      */
     public function initialize(): void
     {
+        $this->loadHelper('HtmlEmailContent');
+        $this->loadHelper('TextEmailContent');
     }
 }

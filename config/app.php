@@ -262,7 +262,10 @@ return [
     'Email' => [
         'default' => [
             'transport' => 'default',
-            'from' => 'you@localhost',
+            'from' => [
+                env('EMAIL_DEFAULT_FROM_EMAIL', 'you@localhost') => env('EMAIL_DEFAULT_FROM_NAME', 'admin'),
+            ],
+            'emailFormat' => 'both',
             /*
              * Will by default be set to config value of App.encoding, if that exists otherwise to UTF-8.
              */
