@@ -56,7 +56,8 @@ return [
         'webroot' => 'webroot',
         'wwwRoot' => WWW_ROOT,
         //'baseUrl' => env('SCRIPT_NAME'),
-        'fullBaseUrl' => false,
+        'fullBaseUrl' => env('APP_FULL_BASE_URL', 'http://localhost'),
+        'siteName' => env('SITE_NAME', 'A CakePHP Site'),
         'imageBaseUrl' => 'img/',
         'cssBaseUrl' => 'css/',
         'jsBaseUrl' => 'js/',
@@ -422,5 +423,8 @@ return [
      */
     'Session' => [
         'defaults' => 'php',
+    ],
+    'DebugKit' => [
+        'safeTld' => ['net'],
     ],
 ];
