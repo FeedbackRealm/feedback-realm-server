@@ -11,7 +11,6 @@ use Cake\ORM\Association\HasMany;
 use Cake\ORM\Behavior\CounterCacheBehavior;
 use Cake\ORM\Behavior\TimestampBehavior;
 use Cake\ORM\RulesChecker;
-use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
@@ -36,7 +35,7 @@ use Cake\Validation\Validator;
  * @mixin TimestampBehavior
  * @mixin CounterCacheBehavior
  */
-class TeamsTable extends Table
+class TeamsTable extends TableBase
 {
     /**
      * Initialize method
@@ -49,7 +48,7 @@ class TeamsTable extends Table
         parent::initialize($config);
 
         $this->setTable('teams');
-        $this->setDisplayField('id');
+        $this->setDisplayField(['user_id', 'app_id']);
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');

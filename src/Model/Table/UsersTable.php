@@ -9,7 +9,6 @@ use Cake\Datasource\ResultSetInterface;
 use Cake\ORM\Association\HasMany;
 use Cake\ORM\Behavior\TimestampBehavior;
 use Cake\ORM\RulesChecker;
-use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
@@ -33,7 +32,7 @@ use Cake\Validation\Validator;
  * @method User[]|ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
  * @mixin TimestampBehavior
  */
-class UsersTable extends Table
+class UsersTable extends TableBase
 {
     /**
      * Initialize method

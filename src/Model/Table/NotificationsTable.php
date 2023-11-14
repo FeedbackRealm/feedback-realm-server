@@ -10,7 +10,6 @@ use Cake\ORM\Association\BelongsTo;
 use Cake\ORM\Behavior\CounterCacheBehavior;
 use Cake\ORM\Behavior\TimestampBehavior;
 use Cake\ORM\RulesChecker;
-use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
@@ -35,7 +34,7 @@ use Cake\Validation\Validator;
  * @mixin TimestampBehavior
  * @mixin CounterCacheBehavior
  */
-class NotificationsTable extends Table
+class NotificationsTable extends TableBase
 {
     /**
      * Initialize method

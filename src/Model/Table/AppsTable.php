@@ -11,7 +11,6 @@ use Cake\ORM\Association\HasMany;
 use Cake\ORM\Behavior\CounterCacheBehavior;
 use Cake\ORM\Behavior\TimestampBehavior;
 use Cake\ORM\RulesChecker;
-use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
@@ -38,7 +37,7 @@ use Cake\Validation\Validator;
  * @mixin TimestampBehavior
  * @mixin CounterCacheBehavior
  */
-class AppsTable extends Table
+class AppsTable extends TableBase
 {
     /**
      * Initialize method
