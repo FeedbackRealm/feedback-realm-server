@@ -15,3 +15,5 @@
  */
 
 echo $this->fetch('content');
+echo $this->TextEmailContent->horizontalLine();
+echo $this->TextEmailContent->link('FeedbackRealm', '/');
