@@ -20,10 +20,10 @@ class UsersFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
-                'name' => 'Lorem ipsum dolor sit amet',
-                'email' => 'Lorem ipsum dolor sit amet',
-                'password' => 'Lorem ipsum dolor sit amet',
-                'avatar' => 'Lorem ipsum dolor sit amet',
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+                'password' => password_hash('password', PASSWORD_DEFAULT),
+                'avatar' => 'test_avatar.jpg',
                 'email_verified' => 1,
                 'app_count' => 1,
                 'created' => '2023-11-14 07:54:24',

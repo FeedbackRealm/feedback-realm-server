@@ -48,7 +48,7 @@ class TeamsTable extends TableBase
         parent::initialize($config);
 
         $this->setTable('teams');
-        $this->setDisplayField(['user_id', 'app_id']);
+        $this->setDisplayField('display_value');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');

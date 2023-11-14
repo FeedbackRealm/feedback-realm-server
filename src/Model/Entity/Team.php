@@ -18,6 +18,8 @@ use Cake\ORM\Entity;
  *
  * @property User $user
  * @property App $app
+ *
+ * @property string $display_value
  */
 class Team extends Entity
 {
@@ -39,4 +41,14 @@ class Team extends Entity
         'user' => true,
         'app' => true,
     ];
+
+    /**
+     * Team Display Field
+     *
+     * @return string
+     */
+    protected function _getDisplayValue(): string
+    {
+        return $this->user_id . ' - ' . $this->app_id;
+    }
 }
