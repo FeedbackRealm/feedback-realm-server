@@ -64,10 +64,14 @@ use josegonzalez\Dotenv\Loader;
 */
 $envFile = ROOT . DS . '.env';
 if (file_exists($envFile)) {
-    $dotenv = new Loader([$envFile]);
-    $dotenv->parse()
-        ->toEnv()
-        ->toServer();
+    try {
+        $dotenv = new Loader([$envFile]);
+        $dotenv->parse()->toEnv()->toServer();
+    } catch (Exception $e) {
+        error_log('Error loading .env file: ' . $e->getMessage());
+        http_response_code(500);
+        exit('Application error. Please try again later.');
+    }
 }
 
 /*

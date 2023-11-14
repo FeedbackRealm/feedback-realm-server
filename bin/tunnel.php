@@ -1,4 +1,4 @@
-#!/usr/local/opt/php@7.4/bin/php -q
+#!/usr/bin/php -q
 <?php
 declare(strict_types=1);
 
