@@ -5,6 +5,7 @@ namespace App\View\Helper;
 
 /**
  * TextEmailContent helper
+ * Creates Text based content for emails
  */
 class TextEmailContentHelper extends EmailContentHelperBase
 {

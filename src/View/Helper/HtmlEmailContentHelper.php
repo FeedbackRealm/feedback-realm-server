@@ -5,6 +5,7 @@ namespace App\View\Helper;
 
 /**
  * HtmlEmailContent helper
+ * Creates HTML based content for emails
  */
 class HtmlEmailContentHelper extends EmailContentHelperBase
 {
