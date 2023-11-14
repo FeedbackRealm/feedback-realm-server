@@ -50,7 +50,13 @@
         "cs-check": "phpcs --colors -p",
         "cs-fix": "phpcbf --colors -p",
         "md-check": "phpmd src text phpmd.xml",
-        "test": "phpunit --colors=always"
+        "test": "phpunit --colors=always",
+        "docker:start": "./bin/docker start",
+        "docker:stop": "./bin/docker stop",
+        "docker": [
+            "Composer\\Config::disableProcessTimeout",
+            "@docker:start"
+        ],
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
