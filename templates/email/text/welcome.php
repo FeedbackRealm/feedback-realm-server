@@ -8,6 +8,6 @@ use Cake\View\View;
  */
 ?>
 
-Welcome <?=$user->name?>!
+Welcome <?=h($user->name)?>!
 
 Thank you for signing up with FeedbackRealm.
