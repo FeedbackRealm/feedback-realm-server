@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+. .env
+CMD="docker-compose -p ${APP_PREFIX} --env-file .env --file ./docker/docker-compose.yml"
+
+case "$1" in
+"start")
+    $CMD up --remove-orphans
+    ;;
+"restart")
+    $CMD restart
+    ;;
+"stop")
+    $CMD stop
+    ;;
+"build")
+    $CMD build
+    ;;
+esac
