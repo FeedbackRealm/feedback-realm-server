@@ -1,9 +1,9 @@
 <?php
 
 use App\Model\Entity\User;
-use Cake\View\View;
+use App\View\AppView;
 /**
- * @var View $this
+ * @var AppView $this
  * @var User $user
  */
 ?>
