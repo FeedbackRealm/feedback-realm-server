@@ -36,7 +36,7 @@ class PagesController extends AppController
      * Displays a view
      *
      * @param string ...$path Path segments.
-     * @return \Cake\Http\Response|null
+     * @return Response|null
      * @throws ForbiddenException When a directory traversal attempt.
      * @throws MissingTemplateException When the view file could not
      *   be found and in debug mode.
