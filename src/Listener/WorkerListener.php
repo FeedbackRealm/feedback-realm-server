@@ -10,7 +10,6 @@ use Cake\Queue\Job\Message as JobMessage;
 use Exception;
 use Interop\Queue\Message;
 use Psr\Log\LogLevel;
-use Throwable;
 
 class WorkerListener implements EventListenerInterface
 {

@@ -191,7 +191,7 @@ return [
         'log' => true,
         'trace' => true,
         'ignoredDeprecationPaths' => [
-            'templates/Pages/home.php',
+            'templates/Pages/home_old.php',
         ],
     ],
 

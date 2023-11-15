@@ -1,0 +1,29 @@
+{% set entityName = singularHumanName|replace({' ': ''}) %}
+<?php
+/**
+* @var AppView $this
+ * @var {{ entityName }} ${{ singularVar }}
+{% for assoc in associations %}
+    {% for subassoc in assoc %}
+        * @var {{ subassoc.alias|singularize }}[]|CollectionInterface ${{ subassoc.alias|variable }}
+    {% endfor %}
+{% endfor %}
+ */
+
+use {{ namespace }}\Model\Entity\{{ entityName }};
+use {{ namespace }}\View\AppView;
+use Cake\Collection\CollectionInterface;
+
+{% for assoc in associations %}
+    {% for subassoc in assoc %}
+use {{ namespace }}\Model\Entity\{{ subassoc.alias|singularize }};
+    {% endfor %}
+{% endfor %}
+
+$this->extend('/layout/common/add');
+$this->assign('title', '{{ singularHumanName }}');
+$this->assign('subTitle', 'create');
+$this->assign('entity', ${{ singularVar }})
+?>
+
+{{ element('form') -}}

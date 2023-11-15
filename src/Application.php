@@ -67,6 +67,8 @@ class Application extends BaseApplication
         // Load more plugins here
         $this->addPlugin('Muffin/Trash');
         $this->addPlugin('Cake/Queue');
+        $this->addPlugin('BootstrapUI');
+        $this->addPlugin('CustomBake');
     }
 
     /**
@@ -83,6 +85,7 @@ class Application extends BaseApplication
         $this->addPlugin('Migrations');
 
         // Load more plugins here
+        Configure::write('Bake.theme', 'CustomBake');
     }
 
     /**

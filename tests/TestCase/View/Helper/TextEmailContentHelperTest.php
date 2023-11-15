@@ -15,7 +15,7 @@ class TextEmailContentHelperTest extends TestCase
     /**
      * Test subject
      *
-     * @var \App\View\Helper\TextEmailContentHelper
+     * @var TextEmailContentHelper
      */
     protected $TextEmailContent;
 
