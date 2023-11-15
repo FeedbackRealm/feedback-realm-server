@@ -67,6 +67,7 @@ class Application extends BaseApplication
         // Load more plugins here
         $this->addPlugin('Muffin/Trash');
         $this->addPlugin('Cake/Queue');
+        $this->addPlugin('BootstrapUI');
     }
 
     /**
