@@ -433,9 +433,7 @@ return [
     ],
     'Queue' => [
         'default' => [
-            'url' => env('DEFAULT_QUEUE_URL', null),
-            // The queue that will be used for sending messages. default: default
-            // This can be overridden when queuing or processing messages
+            'url' => env('DEFAULT_QUEUE_URL', 'file://' . TMP . DS . 'queue'),
             'queue' => 'default',
 
             // The name of a configured logger, default: null
