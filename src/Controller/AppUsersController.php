@@ -3,11 +3,18 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Entity\AppUser;
+use App\Model\Table\AppUsersTable;
+use Cake\Datasource\Exception\RecordNotFoundException;
+use Cake\Datasource\ResultSetInterface;
+use Cake\Http\Response;
+use Cake\ORM\Query;
+
 /**
  * AppUsers Controller
  *
- * @property \App\Model\Table\AppUsersTable $AppUsers
- * @method \App\Model\Entity\AppUser[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @property AppUsersTable $AppUsers
+ * @method AppUser[]|ResultSetInterface paginate($object = null, array $settings = [])
  */
 class AppUsersController extends AppController
 {
@@ -31,7 +38,7 @@ class AppUsersController extends AppController
      *
      * @param string|null $id App User id.
      * @return void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @throws RecordNotFoundException When record not found.
      */
     public function view(?string $id = null)
     {
@@ -43,7 +50,7 @@ class AppUsersController extends AppController
             $this->AppUsers->Feedbacks
                 ->find()
                 ->limit(100)
-                ->matching('AppUsers', fn(\Cake\ORM\Query $q) => $q->where(['app_user_id' => $id])),
+                ->matching('AppUsers', fn(Query $q) => $q->where(['app_user_id' => $id])),
             ['scope' => 'feedbacks']
         );
         $this->set(compact('appUser', 'feedbacks'));
@@ -52,7 +59,7 @@ class AppUsersController extends AppController
     /**
      * Add method
      *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+     * @return Response|null|void Redirects on successful add, renders view otherwise.
      */
     public function add()
     {
@@ -74,8 +81,8 @@ class AppUsersController extends AppController
      * Edit method
      *
      * @param string|null $id App User id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @return Response|null|void Redirects on successful edit, renders view otherwise.
+     * @throws RecordNotFoundException When record not found.
      */
     public function edit(?string $id = null)
     {
@@ -99,10 +106,10 @@ class AppUsersController extends AppController
      * Delete method
      *
      * @param string|null $id App User id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @return Response|null Redirects to index.
+     * @throws RecordNotFoundException When record not found.
      */
-    public function delete(?string $id = null): ?\Cake\Http\Response
+    public function delete(?string $id = null): ?Response
     {
         $this->request->allowMethod(['post', 'delete']);
         $appUser = $this->AppUsers->get($id);

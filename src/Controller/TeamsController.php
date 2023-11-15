@@ -3,11 +3,18 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Entity\Team;
+use App\Model\Table\TeamsTable;
+use Cake\Datasource\Exception\RecordNotFoundException;
+use Cake\Datasource\ResultSetInterface;
+use Cake\Http\Response;
+use Cake\ORM\Query;
+
 /**
  * Teams Controller
  *
- * @property \App\Model\Table\TeamsTable $Teams
- * @method \App\Model\Entity\Team[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @property TeamsTable $Teams
+ * @method Team[]|ResultSetInterface paginate($object = null, array $settings = [])
  */
 class TeamsController extends AppController
 {
@@ -31,7 +38,7 @@ class TeamsController extends AppController
      *
      * @param string|null $id Team id.
      * @return void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @throws RecordNotFoundException When record not found.
      */
     public function view(?string $id = null)
     {
@@ -43,7 +50,7 @@ class TeamsController extends AppController
             $this->Teams->Notifications
                 ->find()
                 ->limit(100)
-                ->matching('Teams', fn(\Cake\ORM\Query $q) => $q->where(['Array' => $id])),
+                ->matching('Teams', fn(Query $q) => $q->where(['Array' => $id])),
             ['scope' => 'notifications']
         );
         $this->set(compact('team', 'notifications'));
@@ -52,7 +59,7 @@ class TeamsController extends AppController
     /**
      * Add method
      *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+     * @return Response|null|void Redirects on successful add, renders view otherwise.
      */
     public function add()
     {
@@ -75,8 +82,8 @@ class TeamsController extends AppController
      * Edit method
      *
      * @param string|null $id Team id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @return Response|null|void Redirects on successful edit, renders view otherwise.
+     * @throws RecordNotFoundException When record not found.
      */
     public function edit(?string $id = null)
     {
@@ -101,10 +108,10 @@ class TeamsController extends AppController
      * Delete method
      *
      * @param string|null $id Team id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @return Response|null Redirects to index.
+     * @throws RecordNotFoundException When record not found.
      */
-    public function delete(?string $id = null): ?\Cake\Http\Response
+    public function delete(?string $id = null): ?Response
     {
         $this->request->allowMethod(['post', 'delete']);
         $team = $this->Teams->get($id);

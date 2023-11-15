@@ -3,11 +3,18 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Entity\App;
+use App\Model\Table\AppsTable;
+use Cake\Datasource\Exception\RecordNotFoundException;
+use Cake\Datasource\ResultSetInterface;
+use Cake\Http\Response;
+use Cake\ORM\Query;
+
 /**
  * Apps Controller
  *
- * @property \App\Model\Table\AppsTable $Apps
- * @method \App\Model\Entity\App[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @property AppsTable $Apps
+ * @method App[]|ResultSetInterface paginate($object = null, array $settings = [])
  */
 class AppsController extends AppController
 {
@@ -31,7 +38,7 @@ class AppsController extends AppController
      *
      * @param string|null $id App id.
      * @return void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @throws RecordNotFoundException When record not found.
      */
     public function view(?string $id = null)
     {
@@ -43,28 +50,28 @@ class AppsController extends AppController
             $this->Apps->AppUsers
                 ->find()
                 ->limit(100)
-                ->matching('Apps', fn(\Cake\ORM\Query $q) => $q->where(['app_id' => $id])),
+                ->matching('Apps', fn(Query $q) => $q->where(['app_id' => $id])),
             ['scope' => 'appUsers']
         );
         $feedbacks = $this->paginate(
             $this->Apps->Feedbacks
                 ->find()
                 ->limit(100)
-                ->matching('Apps', fn(\Cake\ORM\Query $q) => $q->where(['app_id' => $id])),
+                ->matching('Apps', fn(Query $q) => $q->where(['app_id' => $id])),
             ['scope' => 'feedbacks']
         );
         $notifications = $this->paginate(
             $this->Apps->Notifications
                 ->find()
                 ->limit(100)
-                ->matching('Apps', fn(\Cake\ORM\Query $q) => $q->where(['app_id' => $id])),
+                ->matching('Apps', fn(Query $q) => $q->where(['app_id' => $id])),
             ['scope' => 'notifications']
         );
         $teams = $this->paginate(
             $this->Apps->Teams
                 ->find()
                 ->limit(100)
-                ->matching('Apps', fn(\Cake\ORM\Query $q) => $q->where(['app_id' => $id])),
+                ->matching('Apps', fn(Query $q) => $q->where(['app_id' => $id])),
             ['scope' => 'teams']
         );
         $this->set(compact('app', 'appUsers', 'feedbacks', 'notifications', 'teams'));
@@ -73,7 +80,7 @@ class AppsController extends AppController
     /**
      * Add method
      *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+     * @return Response|null|void Redirects on successful add, renders view otherwise.
      */
     public function add()
     {
@@ -95,8 +102,8 @@ class AppsController extends AppController
      * Edit method
      *
      * @param string|null $id App id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @return Response|null|void Redirects on successful edit, renders view otherwise.
+     * @throws RecordNotFoundException When record not found.
      */
     public function edit(?string $id = null)
     {
@@ -120,10 +127,10 @@ class AppsController extends AppController
      * Delete method
      *
      * @param string|null $id App id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @return Response|null Redirects to index.
+     * @throws RecordNotFoundException When record not found.
      */
-    public function delete(?string $id = null): ?\Cake\Http\Response
+    public function delete(?string $id = null): ?Response
     {
         $this->request->allowMethod(['post', 'delete']);
         $app = $this->Apps->get($id);

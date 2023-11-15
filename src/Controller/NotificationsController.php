@@ -3,11 +3,17 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Entity\Notification;
+use App\Model\Table\NotificationsTable;
+use Cake\Datasource\Exception\RecordNotFoundException;
+use Cake\Datasource\ResultSetInterface;
+use Cake\Http\Response;
+
 /**
  * Notifications Controller
  *
- * @property \App\Model\Table\NotificationsTable $Notifications
- * @method \App\Model\Entity\Notification[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @property NotificationsTable $Notifications
+ * @method Notification[]|ResultSetInterface paginate($object = null, array $settings = [])
  */
 class NotificationsController extends AppController
 {
@@ -31,7 +37,7 @@ class NotificationsController extends AppController
      *
      * @param string|null $id Notification id.
      * @return void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @throws RecordNotFoundException When record not found.
      */
     public function view(?string $id = null)
     {
@@ -45,7 +51,7 @@ class NotificationsController extends AppController
     /**
      * Add method
      *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+     * @return Response|null|void Redirects on successful add, renders view otherwise.
      */
     public function add()
     {
@@ -69,8 +75,8 @@ class NotificationsController extends AppController
      * Edit method
      *
      * @param string|null $id Notification id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @return Response|null|void Redirects on successful edit, renders view otherwise.
+     * @throws RecordNotFoundException When record not found.
      */
     public function edit(?string $id = null)
     {
@@ -96,10 +102,10 @@ class NotificationsController extends AppController
      * Delete method
      *
      * @param string|null $id Notification id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @return Response|null Redirects to index.
+     * @throws RecordNotFoundException When record not found.
      */
-    public function delete(?string $id = null): ?\Cake\Http\Response
+    public function delete(?string $id = null): ?Response
     {
         $this->request->allowMethod(['post', 'delete']);
         $notification = $this->Notifications->get($id);

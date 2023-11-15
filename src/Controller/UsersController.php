@@ -3,11 +3,18 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Entity\User;
+use App\Model\Table\UsersTable;
+use Cake\Datasource\Exception\RecordNotFoundException;
+use Cake\Datasource\ResultSetInterface;
+use Cake\Http\Response;
+use Cake\ORM\Query;
+
 /**
  * Users Controller
  *
- * @property \App\Model\Table\UsersTable $Users
- * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @property UsersTable $Users
+ * @method User[]|ResultSetInterface paginate($object = null, array $settings = [])
  */
 class UsersController extends AppController
 {
@@ -28,7 +35,7 @@ class UsersController extends AppController
      *
      * @param string|null $id User id.
      * @return void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @throws RecordNotFoundException When record not found.
      */
     public function view(?string $id = null)
     {
@@ -40,21 +47,21 @@ class UsersController extends AppController
             $this->Users->Apps
                 ->find()
                 ->limit(100)
-                ->matching('Users', fn(\Cake\ORM\Query $q) => $q->where(['user_id' => $id])),
+                ->matching('Users', fn(Query $q) => $q->where(['user_id' => $id])),
             ['scope' => 'apps']
         );
         $notifications = $this->paginate(
             $this->Users->Notifications
                 ->find()
                 ->limit(100)
-                ->matching('Users', fn(\Cake\ORM\Query $q) => $q->where(['user_id' => $id])),
+                ->matching('Users', fn(Query $q) => $q->where(['user_id' => $id])),
             ['scope' => 'notifications']
         );
         $teams = $this->paginate(
             $this->Users->Teams
                 ->find()
                 ->limit(100)
-                ->matching('Users', fn(\Cake\ORM\Query $q) => $q->where(['user_id' => $id])),
+                ->matching('Users', fn(Query $q) => $q->where(['user_id' => $id])),
             ['scope' => 'teams']
         );
         $this->set(compact('user', 'apps', 'notifications', 'teams'));
@@ -63,7 +70,7 @@ class UsersController extends AppController
     /**
      * Add method
      *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+     * @return Response|null|void Redirects on successful add, renders view otherwise.
      */
     public function add()
     {
@@ -84,8 +91,8 @@ class UsersController extends AppController
      * Edit method
      *
      * @param string|null $id User id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @return Response|null|void Redirects on successful edit, renders view otherwise.
+     * @throws RecordNotFoundException When record not found.
      */
     public function edit(?string $id = null)
     {
@@ -108,10 +115,10 @@ class UsersController extends AppController
      * Delete method
      *
      * @param string|null $id User id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @return Response|null Redirects to index.
+     * @throws RecordNotFoundException When record not found.
      */
-    public function delete(?string $id = null): ?\Cake\Http\Response
+    public function delete(?string $id = null): ?Response
     {
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
