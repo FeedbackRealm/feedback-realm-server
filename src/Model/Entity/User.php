@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Entity;
 
+use Authentication\PasswordHasher\DefaultPasswordHasher;
 use Cake\I18n\FrozenTime;
 use Cake\ORM\Entity;
 
@@ -56,4 +57,17 @@ class User extends Entity
     protected $_hidden = [
         'password',
     ];
+
+    /**
+     * Hashes user passwords
+     *
+     * @param string $password the plain-text password
+     * @return string|null
+     */
+    protected function _setPassword(string $password): ?string
+    {
+        if (strlen($password) > 0) {
+            return (new DefaultPasswordHasher())->hash($password);
+        }
+    }
 }

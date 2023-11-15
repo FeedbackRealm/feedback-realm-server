@@ -18,6 +18,7 @@ namespace App\View;
 
 use App\View\Helper\HtmlEmailContentHelper;
 use App\View\Helper\TextEmailContentHelper;
+use Authentication\View\Helper\IdentityHelper;
 use BootstrapUI\View\Helper\BreadcrumbsHelper;
 use BootstrapUI\View\Helper\FlashHelper;
 use BootstrapUI\View\Helper\FormHelper;
@@ -37,6 +38,8 @@ use Cake\View\View;
  * @property-read FlashHelper $Flash
  * @property-read PaginatorHelper $Paginator
  * @property-read BreadcrumbsHelper $Breadcrumbs
+ *
+ * @property-read IdentityHelper $Identity
  *
  * @property-read HtmlEmailContentHelper $HtmlEmailContent
  * @property-read TextEmailContentHelper $TextEmailContent
@@ -71,6 +74,9 @@ class AppView extends View
         $this->loadHelper('Flash', ['className' => 'BootstrapUI.Flash']);
         $this->loadHelper('Paginator', ['className' => 'BootstrapUI.Paginator']);
         $this->loadHelper('Breadcrumbs', ['className' => 'BootstrapUI.Breadcrumbs']);
+
+        $this->loadHelper('Authentication.Identity');
+
         $this->loadHelper('HtmlEmailContent');
         $this->loadHelper('TextEmailContent');
     }
