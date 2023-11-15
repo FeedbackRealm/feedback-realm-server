@@ -1,0 +1,87 @@
+{#
+/**
+ * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
+ * @link          https://cakephp.org CakePHP(tm) Project
+ * @since         1.7.4
+ * @license       https://www.opensource.org/licenses/mit-license.php MIT License
+ */
+#}
+{{ element('Bake.file_header', {
+    namespace: "#{namespace}\\Command",
+    classImports: [
+        'Cake\\Command\\Command',
+        'Cake\\Console\\Arguments',
+        'Cake\\Console\\ConsoleIo',
+        'Cake\\Console\\ConsoleOptionParser',
+        'Cake\\Console\\CommandInterface',
+        'Throwable'
+    ],
+}) }}
+
+/**
+* {{ name }} command.
+* @property Arguments $args
+* @property ConsoleIo $io
+*/
+class {{ name }}Command extends Command
+{
+/**
+* Hook method invoked by CakePHP when a command is about to be executed.
+*
+* Override this method and implement expensive/important setup steps that
+* should not run on every command run. This method will be called *before*
+* the options and arguments are validated and processed.
+*
+* @return void
+*/
+public function initialize(): void
+{
+parent::initialize();
+}
+
+/**
+* Hook method for defining this command's option parser.
+*
+* @see https://book.cakephp.org/4/en/console-commands/commands.html#defining-arguments-and-options
+* @param \Cake\Console\ConsoleOptionParser $parser The parser to be defined
+* @return \Cake\Console\ConsoleOptionParser The built parser.
+*/
+public function buildOptionParser(ConsoleOptionParser $parser): ConsoleOptionParser
+{
+$parser = parent::buildOptionParser($parser);
+
+return $parser;
+}
+
+/**
+* Implement this method with your command's logic.
+*
+* @param \Cake\Console\Arguments $args The command arguments.
+* @param \Cake\Console\ConsoleIo $io The console io
+* @return int The exit code
+*/
+public function execute(Arguments $args, ConsoleIo $io):int
+{
+try {
+$this->io = $io;
+$this->args = $args;
+$this->main();
+return CommandInterface::CODE_SUCCESS;
+} catch (Throwable $exception) {
+$io->error($exception->getMessage());
+return CommandInterface::CODE_ERROR;
+}
+}
+
+protected function main()
+{
+
+}
+}

@@ -1,0 +1,51 @@
+{#
+/**
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
+ * @since         2.0.0
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ */
+#}
+{% set containedAssociations = Bake.aliasExtractor(modelObj, 'BelongsTo') %}
+{% set containedAssociations = containedAssociations|merge(Bake.aliasExtractor(modelObj, 'HasOne')) %}
+
+{% set paginatedAssociations = Bake.aliasExtractor(modelObj, 'BelongsToMany') %}
+{% set paginatedAssociations = paginatedAssociations|merge(Bake.aliasExtractor(modelObj, 'HasMany')) %}
+/**
+* View method
+*
+* @param string|null $id {{ singularHumanName }} id.
+* @return void Renders view
+* @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+*/
+public function view(?string $id = null)
+{
+${{ singularName }} = $this->{{ currentModelName }}->get($id, [
+'contain' => {{ Bake.exportArray(containedAssociations)|raw }},
+]);
+
+{% set compact = ["'#{singularName}'"] %}
+{%- for assoc in paginatedAssociations %}
+    {%- set otherName = Bake.getAssociatedTableAlias(modelObj, assoc) %}
+    {%- set otherPlural = otherName|variable %}
+    {%- set foreignKey = modelObj.getAssociation(assoc).getForeignKey() %}
+    {%- set conditions1 = modelObj.getAssociation(assoc).getConditions() %}
+    ${{ otherPlural }} = $this->paginate(
+    $this->{{ currentModelName }}->{{ otherName }}
+    ->find()
+    ->limit(100)
+    ->matching('{{ currentModelName }}', fn(\Cake\ORM\Query $q) => $q->where(['{{ foreignKey }}' => $id])),
+    ['scope'=>'{{ otherPlural }}']
+    );
+    {{- "\n" }}
+    {%- set compact = compact|merge(["'#{otherPlural}'"]) %}
+{% endfor %}
+$this->set(compact({{ compact|join(', ')|raw }}));
+}
