@@ -11,5 +11,6 @@
         <include name="SlevomatCodingStandard.Namespaces.FullyQualifiedExceptionsSniff"/>
         <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation"/>
         <exclude name="SlevomatCodingStandard.Namespaces.UnusedUses.UnusedUse"/>
+        <exclude name="CakePHP.Commenting.FunctionComment.MissingParamComment"/>
     </rule>
 </ruleset>
