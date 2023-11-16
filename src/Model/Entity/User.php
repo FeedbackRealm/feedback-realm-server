@@ -3,7 +3,12 @@ declare(strict_types=1);
 
 namespace App\Model\Entity;
 
+use Authentication\IdentityInterface as AuthenticationIdentity;
 use Authentication\PasswordHasher\DefaultPasswordHasher;
+use Authorization\AuthorizationService;
+use Authorization\AuthorizationServiceInterface;
+use Authorization\IdentityInterface as AuthorizationIdentity;
+use Authorization\Policy\ResultInterface;
 use Cake\I18n\FrozenTime;
 use Cake\ORM\Entity;
 
@@ -23,8 +28,10 @@ use Cake\ORM\Entity;
  * @property App[] $apps
  * @property Notification[] $notifications
  * @property Team[] $teams
+ *
+ * @property AuthorizationServiceInterface $authorization
  */
-class User extends Entity
+class User extends Entity implements AuthenticationIdentity, AuthorizationIdentity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -71,5 +78,74 @@ class User extends Entity
         }
 
         return $password;
+    }
+
+    /**
+     * Authentication\IdentityInterface method
+     *
+     * @return int
+     */
+    public function getIdentifier(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * Authentication\IdentityInterface method
+     *
+     * @return User
+     */
+    public function getOriginalData(): User
+    {
+        return $this;
+    }
+
+    /**
+     * Sets the Authorization service
+     *
+     * @param AuthorizationServiceInterface $service
+     * @return User
+     */
+    public function setAuthorization(AuthorizationServiceInterface $service): User
+    {
+        $this->authorization = $service;
+
+        return $this;
+    }
+
+    /**
+     * Authorization\IdentityInterface method
+     *
+     * @param string $action
+     * @param mixed $resource
+     * @return bool
+     */
+    public function can(string $action, $resource): bool
+    {
+        return $this->authorization->can($this, $action, $resource);
+    }
+
+    /**
+     * Authorization\IdentityInterface method
+     *
+     * @param string $action
+     * @param mixed $resource
+     * @return ResultInterface
+     */
+    public function canResult(string $action, $resource): ResultInterface
+    {
+        return $this->authorization->canResult($this, $action, $resource);
+    }
+
+    /**
+     * Authorization\IdentityInterface method
+     *
+     * @param string $action
+     * @param mixed $resource
+     * @return mixed
+     */
+    public function applyScope(string $action, $resource)
+    {
+        return $this->authorization->applyScope($this, $action, $resource);
     }
 }

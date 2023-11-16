@@ -18,6 +18,7 @@ declare(strict_types=1);
 namespace App;
 
 use App\Middleware\UnauthorizedHandler\CustomRedirectHandler;
+use App\Model\Entity\User;
 use Authentication\AuthenticationService;
 use Authentication\AuthenticationServiceInterface;
 use Authentication\AuthenticationServiceProviderInterface;
@@ -137,6 +138,9 @@ class Application extends BaseApplication implements
             ->add(new BodyParserMiddleware())
             ->add(new AuthenticationMiddleware($this))
             ->add(new AuthorizationMiddleware($this, [
+                'identityDecorator' => function (AuthorizationServiceInterface $auth, User $user) {
+                    return $user->setAuthorization($auth);
+                },
                 'unauthorizedHandler' => [
                     'className' => CustomRedirectHandler::class,
                     'url' => '/about',
