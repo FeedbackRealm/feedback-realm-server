@@ -19,6 +19,15 @@ use Cake\ORM\Query;
 class AppsController extends AppController
 {
     /**
+     * @inheritDoc
+     */
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->Authorization->authorizeModel('index', 'add', 'edit', 'delete', 'view');
+    }
+
+    /**
      * Index method
      *
      * @return void Renders view
@@ -28,7 +37,14 @@ class AppsController extends AppController
         $this->paginate = [
             'contain' => ['Users'],
         ];
-        $apps = $this->paginate($this->Apps);
+        $query = $this->Apps
+            ->find()
+            ->orderDesc('Apps.created')
+            ->contain('Users')
+            ->matching('Teams', fn(Query $q) => $q->where([
+                'Teams.user_id' => $this->getAuthUser()->id,
+            ]));
+        $apps = $this->paginate($query);
 
         $this->set(compact('apps'));
     }
@@ -45,7 +61,7 @@ class AppsController extends AppController
         $app = $this->Apps->get($id, [
             'contain' => ['Users'],
         ]);
-
+        $this->Authorization->authorize($app);
         $appUsers = $this->paginate(
             $this->Apps->AppUsers
                 ->find()
@@ -86,7 +102,10 @@ class AppsController extends AppController
     {
         $app = $this->Apps->newEmptyEntity();
         if ($this->request->is('post')) {
-            $app = $this->Apps->patchEntity($app, $this->request->getData());
+            $app->user_id = $this->getAuthUser()->id;
+            $app = $this->Apps->patchEntity($app, $this->request->getData(), [
+                'fields' => ['name', 'logo', 'description'],
+            ]);
             if ($this->Apps->save($app)) {
                 $this->Flash->success(__('The app has been saved.'));
 
@@ -94,8 +113,7 @@ class AppsController extends AppController
             }
             $this->Flash->error(__('The app could not be saved. Please, try again.'));
         }
-        $users = $this->Apps->Users->find('list', ['limit' => 200])->all();
-        $this->set(compact('app', 'users'));
+        $this->set(compact('app'));
     }
 
     /**
@@ -110,8 +128,11 @@ class AppsController extends AppController
         $app = $this->Apps->get($id, [
             'contain' => [],
         ]);
+        $this->Authorization->authorize($app);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $app = $this->Apps->patchEntity($app, $this->request->getData());
+            $app = $this->Apps->patchEntity($app, $this->request->getData(), [
+                'fields' => ['name', 'logo', 'description'],
+            ]);
             if ($this->Apps->save($app)) {
                 $this->Flash->success(__('The app has been saved.'));
 
@@ -119,8 +140,7 @@ class AppsController extends AppController
             }
             $this->Flash->error(__('The app could not be saved. Please, try again.'));
         }
-        $users = $this->Apps->Users->find('list', ['limit' => 200])->all();
-        $this->set(compact('app', 'users'));
+        $this->set(compact('app'));
     }
 
     /**
@@ -134,6 +154,7 @@ class AppsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $app = $this->Apps->get($id);
+        $this->Authorization->authorize($app);
         if ($this->Apps->delete($app)) {
             $this->Flash->success(__('The app has been deleted.'));
         } else {
