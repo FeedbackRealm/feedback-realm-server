@@ -15,7 +15,7 @@ class CustomRedirectHandler extends RedirectHandler
      * Handles the unauthorized request. The modified response should be returned.
      *
      * @param Exception $exception Authorization exception thrown by the application.
-     * @param ServerRequest $request Server request.
+     * @param ServerRequest|ServerRequestInterface $request Server request.
      * @param array $options Options array.
      * @return ResponseInterface
      */
@@ -25,6 +25,7 @@ class CustomRedirectHandler extends RedirectHandler
         array $options = []
     ): ResponseInterface {
         $response = parent::handle($exception, $request, $options);
+        /** @phpstan-ignore-next-line */
         $request->getFlash()->error(sprintf(
             'You are not authorized to access "%s"',
             $request->getRequestTarget()

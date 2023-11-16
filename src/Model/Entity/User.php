@@ -62,12 +62,14 @@ class User extends Entity
      * Hashes user passwords
      *
      * @param string $password the plain-text password
-     * @return string|null
+     * @return string
      */
-    protected function _setPassword(string $password): ?string
+    protected function _setPassword(string $password): string
     {
         if (strlen($password) > 0) {
             return (new DefaultPasswordHasher())->hash($password);
         }
+
+        return $password;
     }
 }

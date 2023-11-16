@@ -23,14 +23,15 @@ class AuthController extends AppController
     {
         parent::beforeFilter($event);
         $this->Authentication->addUnauthenticatedActions(['login', 'register']);
+        $this->Authorization->skipAuthorization();
     }
 
     /**
      * Redirects to the login screen
      *
-     * @return Response
+     * @return Response|null
      */
-    public function index(): Response
+    public function index(): ?Response
     {
         return $this->redirect('/auth/login');
     }
@@ -46,15 +47,14 @@ class AuthController extends AppController
         $result = $this->Authentication->getResult();
         // regardless of POST or GET, redirect if user is logged in
         if ($result && $result->isValid()) {
-            // redirect to /articles after login success
             $redirect = $this->request->getQuery('redirect', [
                 'controller' => 'Apps',
                 'action' => 'index',
             ]);
-
+            /** @phpstan-ignore-next-line */
             return $this->redirect($redirect);
         }
-        // display error if user submitted and authentication failed
+        /** @phpstan-ignore-next-line */
         if ($this->request->is('post') && !$result->isValid()) {
             $this->Flash->error(__('Invalid email or password'));
         }
@@ -68,7 +68,7 @@ class AuthController extends AppController
     public function logout()
     {
         $result = $this->Authentication->getResult();
-        // regardless of POST or GET, redirect if user is logged in
+
         if ($result && $result->isValid()) {
             $this->Authentication->logout();
 
