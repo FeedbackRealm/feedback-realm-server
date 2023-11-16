@@ -53,7 +53,7 @@ $this->assign('title', 'Apps');
                 <td class="actions">
                     <?= $this->element('/layout/table_row_actions', [
                         'entity' => $app,
-                        'displayName' => $app->name
+                        'displayName' => $app->name,
                     ]) ?>
                 </td>
             </tr>

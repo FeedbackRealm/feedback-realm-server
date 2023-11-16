@@ -34,14 +34,11 @@ class AppsController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Users'],
-        ];
         $query = $this->Apps
             ->find()
             ->orderDesc('Apps.created')
             ->contain('Users')
-            ->matching('Teams', fn(Query $q) => $q->where([
+            ->innerJoinWith('Teams', fn(Query $q) => $q->where([
                 'Teams.user_id' => $this->getAuthUser()->id,
             ]));
         $apps = $this->paginate($query);
