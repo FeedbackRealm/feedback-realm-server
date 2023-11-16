@@ -26,8 +26,9 @@ class FeedbacksFixture extends TestFixture
                 'title' => 'Lorem ipsum dolor sit amet',
                 'body' => 'Lorem ipsum dolor sit amet',
                 'meta' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-                'created' => '2023-11-14 07:54:41',
-                'modified' => '2023-11-14 07:54:41',
+                'created' => '2023-11-16 07:51:23',
+                'modified' => '2023-11-16 07:51:23',
+                'deleted' => '2023-11-16 07:51:23',
             ],
         ];
         parent::init();

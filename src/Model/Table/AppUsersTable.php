@@ -90,6 +90,14 @@ class AppUsersTable extends TableBase
             ->scalar('meta')
             ->allowEmptyString('meta');
 
+        $validator
+            ->nonNegativeInteger('feedback_count')
+            ->allowEmptyString('feedback_count');
+
+        $validator
+            ->dateTime('deleted')
+            ->allowEmptyDateTime('deleted');
+
         return $validator;
     }
 

@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Model\Table;
 
 use App\Model\Entity\Team;
-use App\Model\Entity\User;
 use Cake\Datasource\EntityInterface;
 use Cake\Datasource\ResultSetInterface;
 use Cake\ORM\Association\BelongsTo;
@@ -39,6 +38,23 @@ use Cake\Validation\Validator;
  */
 class TeamsTable extends TableBase
 {
+    /**
+     * Returns true when a user is part of an app team
+     *
+     * @param int $userId
+     * @param int $appId
+     * @return bool
+     */
+    public static function isTeamMember(int $userId, int $appId): bool
+    {
+        return TableRegistry::getTableLocator()
+            ->get('Teams')
+            ->exists([
+                'user_id' => $userId,
+                'app_id' => $appId,
+            ]);
+    }
+
     /**
      * Initialize method
      *
@@ -107,22 +123,5 @@ class TeamsTable extends TableBase
         $rules->add($rules->existsIn('app_id', 'Apps'), ['errorField' => 'app_id']);
 
         return $rules;
-    }
-
-    /**
-     * Returns true when a user is part of an app team
-     *
-     * @param int $userId
-     * @param int $appId
-     * @return bool
-     */
-    public static function isTeamMember(int $userId, int $appId): bool
-    {
-        return TableRegistry::getTableLocator()
-            ->get('Teams')
-            ->exists([
-            'user_id' => $userId,
-            'app_id' => $appId,
-        ]);
     }
 }

@@ -24,8 +24,10 @@ class AppUsersFixture extends TestFixture
                 'identifier' => 'Lorem ipsum dolor sit amet',
                 'name' => 'Lorem ipsum dolor sit amet',
                 'meta' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-                'created' => '2023-11-14 07:54:55',
-                'modified' => '2023-11-14 07:54:55',
+                'feedback_count' => 1,
+                'created' => '2023-11-16 07:51:27',
+                'modified' => '2023-11-16 07:51:27',
+                'deleted' => '2023-11-16 07:51:27',
             ],
         ];
         parent::init();

@@ -5,7 +5,6 @@ namespace App\Model\Entity;
 
 use Authentication\IdentityInterface as AuthenticationIdentity;
 use Authentication\PasswordHasher\DefaultPasswordHasher;
-use Authorization\AuthorizationService;
 use Authorization\AuthorizationServiceInterface;
 use Authorization\IdentityInterface as AuthorizationIdentity;
 use Authorization\Policy\ResultInterface;
@@ -64,21 +63,6 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
     protected $_hidden = [
         'password',
     ];
-
-    /**
-     * Hashes user passwords
-     *
-     * @param string $password the plain-text password
-     * @return string
-     */
-    protected function _setPassword(string $password): string
-    {
-        if (strlen($password) > 0) {
-            return (new DefaultPasswordHasher())->hash($password);
-        }
-
-        return $password;
-    }
 
     /**
      * Authentication\IdentityInterface method
@@ -147,5 +131,20 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
     public function applyScope(string $action, $resource)
     {
         return $this->authorization->applyScope($this, $action, $resource);
+    }
+
+    /**
+     * Hashes user passwords
+     *
+     * @param string $password the plain-text password
+     * @return string
+     */
+    protected function _setPassword(string $password): string
+    {
+        if (strlen($password) > 0) {
+            return (new DefaultPasswordHasher())->hash($password);
+        }
+
+        return $password;
     }
 }

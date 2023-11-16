@@ -30,28 +30,6 @@ class AppUsersTableTest extends TestCase
     ];
 
     /**
-     * Test validationDefault method
-     *
-     * @return void
-     * @uses AppUsersTable::validationDefault
-     */
-    public function testValidationDefault(): void
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     * @uses AppUsersTable::buildRules
-     */
-    public function testBuildRules(): void
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
      * setUp method
      *
      * @return void
@@ -73,5 +51,27 @@ class AppUsersTableTest extends TestCase
         unset($this->AppUsers);
 
         parent::tearDown();
+    }
+
+    /**
+     * Test validationDefault method
+     *
+     * @return void
+     * @uses AppUsersTable::validationDefault
+     */
+    public function testValidationDefault(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test buildRules method
+     *
+     * @return void
+     * @uses AppUsersTable::buildRules
+     */
+    public function testBuildRules(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
     }
 }
