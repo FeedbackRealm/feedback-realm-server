@@ -27,6 +27,7 @@
         "captainhook/captainhook": "^5.18",
         "josegonzalez/dotenv": "^4.0",
         "phpmd/phpmd": "@stable",
+        "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^9.6",
         "ramsey/conventional-commits": "^1.4"
     },
