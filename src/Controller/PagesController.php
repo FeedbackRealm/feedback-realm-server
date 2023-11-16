@@ -33,6 +33,15 @@ use Cake\View\Exception\MissingTemplateException;
 class PagesController extends AppController
 {
     /**
+     * @inheritDoc
+     */
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->Authorization->skipAuthorization();
+    }
+
+    /**
      * Displays a view
      *
      * @param string ...$path Path segments.

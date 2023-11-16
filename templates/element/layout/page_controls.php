@@ -23,7 +23,15 @@ if ($entity) {
 $options = [
     'class' => 'btn btn-outline-info',
 ];
-$deleteBtn = $this->Form->postLink(__('Delete'), ['action' => 'delete', $identifier], ['confirm' => __('Are you sure you want to delete # {0}?', $identifier), 'title' => __('Delete'), 'class' => 'btn btn-outline-danger']);
+$deleteBtn = $this->Form->postLink(
+    __('Delete'),
+    ['action' => 'delete', $identifier],
+    [
+        'confirm' => __('Are you sure you want to delete # {0}?', $identifier),
+        'title' => __('Delete'),
+        'class' => 'btn btn-outline-danger',
+    ]
+);
 $viewBtn = $this->Html->link('View', ['action' => 'view', $identifier], $options);
 $addBtn = $this->Html->link('Create', ['action' => 'add', $identifier], $options);
 $edit = $this->Html->link('Edit', ['action' => 'edit', $identifier], $options);

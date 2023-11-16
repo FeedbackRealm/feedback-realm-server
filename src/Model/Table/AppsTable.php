@@ -4,13 +4,16 @@ declare(strict_types=1);
 namespace App\Model\Table;
 
 use App\Model\Entity\App;
+use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Datasource\ResultSetInterface;
+use Cake\Event\EventInterface;
 use Cake\ORM\Association\BelongsTo;
 use Cake\ORM\Association\HasMany;
 use Cake\ORM\Behavior\CounterCacheBehavior;
 use Cake\ORM\Behavior\TimestampBehavior;
 use Cake\ORM\RulesChecker;
+use Cake\Utility\Text;
 use Cake\Validation\Validator;
 
 /**
@@ -138,5 +141,39 @@ class AppsTable extends TableBase
         $rules->add($rules->existsIn('user_id', 'Users'), ['errorField' => 'user_id']);
 
         return $rules;
+    }
+
+    /**
+     * Event is fired before each entity is saved
+     *
+     * @param EventInterface $event
+     * @param App $entity
+     * @param ArrayObject $options
+     * @return void
+     */
+    public function beforeSave(EventInterface $event, App $entity, ArrayObject $options)
+    {
+        if ($entity->isNew()) {
+            $entity->auth_token = Text::uuid();
+        }
+    }
+
+    /**
+     * Event is fired after an entity is saved
+     *
+     * @param EventInterface $event
+     * @param App $entity
+     * @param ArrayObject $options
+     * @return void
+     */
+    public function afterSave(EventInterface $event, App $entity, ArrayObject $options)
+    {
+        if ($entity->isNew()) {
+            $team = $this->Teams->newEntity([
+                'app_id' => $entity->id,
+                'user_id' => $entity->user_id,
+            ]);
+            $this->Teams->saveOrFail($team);
+        }
     }
 }

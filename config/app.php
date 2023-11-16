@@ -427,9 +427,11 @@ return [
      */
     'Session' => [
         'defaults' => 'php',
+        'timeout' => 60,
     ],
     'DebugKit' => [
         'safeTld' => ['net'],
+        'ignoreAuthorization' => true,
     ],
     'Queue' => [
         'default' => [
