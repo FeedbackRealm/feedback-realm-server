@@ -18,6 +18,9 @@
                 "action": "\\CaptainHook\\App\\Hook\\PHP\\Action\\Linting"
             },
             {
+                "action": "./vendor/bin/phpstan"
+            },
+            {
                 "action": "composer test"
             },
             {
