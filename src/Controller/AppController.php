@@ -18,6 +18,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Authentication\Controller\Component\AuthenticationComponent;
+use Authorization\Controller\Component\AuthorizationComponent;
 use Cake\Controller\Controller;
 use Exception;
 
@@ -29,6 +30,7 @@ use Exception;
  *
  * @link https://book.cakephp.org/4/en/controllers.html#the-app-controller
  * @property-read AuthenticationComponent $Authentication
+ * @property-read AuthorizationComponent $Authorization
  */
 class AppController extends Controller
 {
@@ -49,6 +51,8 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Authentication.Authentication');
+        $this->loadComponent('Authorization.Authorization');
+
         $this->Authentication->allowUnauthenticated(['display']);
         /*
          * Enable the following component for recommended CakePHP form protection settings.
