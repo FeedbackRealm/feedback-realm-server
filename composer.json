@@ -15,6 +15,7 @@
         "cakephp/queue": "^1.0",
         "enqueue/fs": "^0.10.19",
         "enqueue/redis": "^0.10.19",
+        "fakerphp/faker": "^1.23",
         "friendsofcake/bootstrap-ui": "^4.0",
         "mobiledetect/mobiledetectlib": "^3.74",
         "muffin/trash": "^3.1",
@@ -59,6 +60,7 @@
             "@cs-check",
             "@md-check"
         ],
+        "phpstan": "phpstan  --memory-limit=256000000",
         "cs-check": "phpcs --colors -p",
         "cs-fix": "phpcbf --colors -p",
         "md-check": "phpmd src text phpmd.xml",

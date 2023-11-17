@@ -192,6 +192,7 @@ return [
         'trace' => true,
         'ignoredDeprecationPaths' => [
             'templates/Pages/home_old.php',
+            'vendor/cakephp/cakephp/src/Database/Connection.php',
         ],
     ],
 
