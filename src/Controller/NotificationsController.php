@@ -18,6 +18,15 @@ use Cake\Http\Response;
 class NotificationsController extends AppController
 {
     /**
+     * @inheritDoc
+     */
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->Authorization->skipAuthorization();
+    }
+
+    /**
      * Index method
      *
      * @return void Renders view
@@ -25,7 +34,10 @@ class NotificationsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Apps', 'Users', 'Teams'],
+            'contain' => ['Apps'],
+            'conditions' => [
+                'Notifications.user_id' => $this->getAuthUser()->id,
+            ],
         ];
         $notifications = $this->paginate($this->Notifications);
 
@@ -43,59 +55,12 @@ class NotificationsController extends AppController
     {
         $notification = $this->Notifications->get($id, [
             'contain' => ['Apps', 'Users', 'Teams'],
+            'conditions' => [
+                'Notifications.user_id' => $this->getAuthUser()->id,
+            ],
         ]);
 
         $this->set(compact('notification'));
-    }
-
-    /**
-     * Add method
-     *
-     * @return Response|null|void Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $notification = $this->Notifications->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $notification = $this->Notifications->patchEntity($notification, $this->request->getData());
-            if ($this->Notifications->save($notification)) {
-                $this->Flash->success(__('The notification has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The notification could not be saved. Please, try again.'));
-        }
-        $apps = $this->Notifications->Apps->find('list', ['limit' => 200])->all();
-        $users = $this->Notifications->Users->find('list', ['limit' => 200])->all();
-        $teams = $this->Notifications->Teams->find('list', ['limit' => 200])->all();
-        $this->set(compact('notification', 'apps', 'users', 'teams'));
-    }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id Notification id.
-     * @return Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws RecordNotFoundException When record not found.
-     */
-    public function edit(?string $id = null)
-    {
-        $notification = $this->Notifications->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $notification = $this->Notifications->patchEntity($notification, $this->request->getData());
-            if ($this->Notifications->save($notification)) {
-                $this->Flash->success(__('The notification has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The notification could not be saved. Please, try again.'));
-        }
-        $apps = $this->Notifications->Apps->find('list', ['limit' => 200])->all();
-        $users = $this->Notifications->Users->find('list', ['limit' => 200])->all();
-        $teams = $this->Notifications->Teams->find('list', ['limit' => 200])->all();
-        $this->set(compact('notification', 'apps', 'users', 'teams'));
     }
 
     /**
@@ -108,7 +73,11 @@ class NotificationsController extends AppController
     public function delete(?string $id = null): ?Response
     {
         $this->request->allowMethod(['post', 'delete']);
-        $notification = $this->Notifications->get($id);
+        $notification = $this->Notifications->get($id, [
+            'conditions' => [
+                'Notifications.user_id' => $this->getAuthUser()->id,
+            ],
+        ]);
         if ($this->Notifications->delete($notification)) {
             $this->Flash->success(__('The notification has been deleted.'));
         } else {
