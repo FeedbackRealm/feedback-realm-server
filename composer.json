@@ -60,6 +60,7 @@
             "@cs-check",
             "@md-check"
         ],
+        "phpstan": "phpstan  --memory-limit=256000000",
         "cs-check": "phpcs --colors -p",
         "cs-fix": "phpcbf --colors -p",
         "md-check": "phpmd src text phpmd.xml",
