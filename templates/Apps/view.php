@@ -5,14 +5,14 @@
  * @var AppUser[]|CollectionInterface $appUsers
  * @var Feedback[]|CollectionInterface $feedbacks
  * @var Notification[]|CollectionInterface $notifications
- * @var Team[]|CollectionInterface $teams
+ * @var AppMember[]|CollectionInterface $app_members
  */
 
 use App\Model\Entity\App;
+use App\Model\Entity\AppMember;
 use App\Model\Entity\AppUser;
 use App\Model\Entity\Feedback;
 use App\Model\Entity\Notification;
-use App\Model\Entity\Team;
 use App\View\AppView;
 use Cake\Collection\CollectionInterface;
 
@@ -58,8 +58,8 @@ $this->assign('entity', $app)
                 <td><?= $this->Number->format($app->id) ?></td>
             </tr>
             <tr>
-                <th scope="row"><?= __('Team Count') ?></th>
-                <td><?= $this->Number->format($app->team_count) ?></td>
+                <th scope="row"><?= __('AppMember Count') ?></th>
+                <td><?= $this->Number->format($app->app_member_count) ?></td>
             </tr>
             <tr>
                 <th scope="row"><?= __('App User Count') ?></th>
@@ -215,8 +215,8 @@ $this->assign('entity', $app)
         <?php endif; ?>
     </div>
     <div class="related">
-        <h4><?= __('Related Teams') ?></h4>
-        <?php if (!empty($app->teams)) : ?>
+        <h4><?= __('Related AppMembers') ?></h4>
+        <?php if (!empty($app->app_members)) : ?>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <tr>
@@ -229,23 +229,23 @@ $this->assign('entity', $app)
                         <th scope="col"><?= __('Deleted') ?></th>
                         <th scope="col" class="actions"><?= __('Actions') ?></th>
                     </tr>
-                    <?php foreach ($app->teams as $teams) : ?>
+                    <?php foreach ($app->app_members as $app_members) : ?>
                         <tr>
-                            <td><?= h($teams->id) ?></td>
-                            <td><?= h($teams->user_id) ?></td>
-                            <td><?= h($teams->app_id) ?></td>
-                            <td><?= h($teams->notification_count) ?></td>
-                            <td><?= h($teams->created) ?></td>
-                            <td><?= h($teams->modified) ?></td>
-                            <td><?= h($teams->deleted) ?></td>
+                            <td><?= h($app_members->id) ?></td>
+                            <td><?= h($app_members->user_id) ?></td>
+                            <td><?= h($app_members->app_id) ?></td>
+                            <td><?= h($app_members->notification_count) ?></td>
+                            <td><?= h($app_members->created) ?></td>
+                            <td><?= h($app_members->modified) ?></td>
+                            <td><?= h($app_members->deleted) ?></td>
                             <td class="actions">
-                                <?= $this->Html->link(__('View'), ['controller' => 'Teams', 'action' =>
-                                    'view', $teams->id], ['class' => 'btn btn-secondary']) ?>
-                                <?= $this->Html->link(__('Edit'), ['controller' => 'Teams', 'action' =>
-                                    'edit', $teams->id], ['class' => 'btn btn-secondary']) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Teams',
-                                    'action' => 'delete', $teams->id], ['confirm' => __('Are you sure you want to delete
-                            # {0}?', $teams->id), 'class' => 'btn btn-danger']) ?>
+                                <?= $this->Html->link(__('View'), ['controller' => 'AppMembers', 'action' =>
+                                    'view', $app_members->id], ['class' => 'btn btn-secondary']) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'AppMembers', 'action' =>
+                                    'edit', $app_members->id], ['class' => 'btn btn-secondary']) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'AppMembers',
+                                    'action' => 'delete', $app_members->id], ['confirm' => __('Are you sure you want to delete
+                            # {0}?', $app_members->id), 'class' => 'btn btn-danger']) ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>

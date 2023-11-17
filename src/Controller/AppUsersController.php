@@ -39,9 +39,9 @@ class AppUsersController extends AppController
             ->find()
             ->contain('Apps')
             ->orderDesc('AppUsers.created')
-            ->innerJoin('Teams', [
-                'Teams.app_id = AppUsers.app_id',
-                'Teams.user_id' => $this->getAuthUser()->id,
+            ->innerJoin('AppMembers', [
+                'AppMembers.app_id = AppUsers.app_id',
+                'AppMembers.user_id' => $this->getAuthUser()->id,
             ]);
         $showAppNames = true;
         if ($appId) {

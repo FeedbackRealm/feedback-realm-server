@@ -20,7 +20,7 @@ use App\View\AppView;
                     <li class="nav-item"><a class="nav-link" href="/apps">Apps</a></li>
                     <li class="nav-item"><a class="nav-link" href="/app-users">App Users</a></li>
                     <li class="nav-item"><a class="nav-link" href="/feedbacks">Feedbacks</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/teams">Team</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/app_members">AppMember</a></li>
                     <li class="nav-item"><a class="nav-link" href="/auth/logout">Log Out</a></li>
                 <?php else : ?>
                     <li class="nav-item"><a class="nav-link" href="/auth/login">Log In</a></li>

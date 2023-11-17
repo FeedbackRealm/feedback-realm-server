@@ -5,7 +5,7 @@ namespace App\Policy;
 
 use App\Model\Entity\AppUser;
 use App\Model\Entity\User;
-use App\Model\Table\TeamsTable;
+use App\Model\Table\AppMembersTable;
 use Authorization\IdentityInterface;
 
 /**
@@ -22,7 +22,7 @@ class AppUserPolicy
      */
     public function canEdit(IdentityInterface $user, AppUser $appUser): bool
     {
-        return TeamsTable::isAppMember($user->id, $appUser->app_id);
+        return AppMembersTable::isAppMember($user->id, $appUser->app_id);
     }
 
     /**
@@ -46,6 +46,6 @@ class AppUserPolicy
      */
     public function canView(IdentityInterface $user, AppUser $appUser): bool
     {
-        return TeamsTable::isAppMember($user->id, $appUser->app_id);
+        return AppMembersTable::isAppMember($user->id, $appUser->app_id);
     }
 }

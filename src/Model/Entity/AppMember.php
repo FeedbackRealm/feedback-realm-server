@@ -7,7 +7,7 @@ use Cake\I18n\FrozenTime;
 use Cake\ORM\Entity;
 
 /**
- * Team Entity
+ * AppMember Entity
  *
  * @property int $id
  * @property int $user_id
@@ -21,7 +21,7 @@ use Cake\ORM\Entity;
  *
  * @property string $display_value
  */
-class Team extends Entity
+class AppMember extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -43,7 +43,7 @@ class Team extends Entity
     ];
 
     /**
-     * Team Display Field
+     * AppMember Display Field
      *
      * @return string
      */

@@ -37,9 +37,9 @@ class FeedbacksController extends AppController
             ->find()
             ->contain(['Apps', 'AppUsers'])
             ->orderDesc('Feedbacks.created')
-            ->innerJoin('Teams', [
-                'Teams.app_id = Feedbacks.app_id',
-                'Teams.user_id' => $this->getAuthUser()->id,
+            ->innerJoin('AppMembers', [
+                'AppMembers.app_id = Feedbacks.app_id',
+                'AppMembers.user_id' => $this->getAuthUser()->id,
             ]);
         $showAppNames = true;
         if ($appId) {

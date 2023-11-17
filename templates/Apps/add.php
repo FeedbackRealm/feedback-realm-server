@@ -6,14 +6,14 @@
  * @var AppUser[]|CollectionInterface $appUsers
  * @var Feedback[]|CollectionInterface $feedbacks
  * @var Notification[]|CollectionInterface $notifications
- * @var Team[]|CollectionInterface $teams
+ * @var AppMember[]|CollectionInterface $app_members
  */
 
 use App\Model\Entity\App;
+use App\Model\Entity\AppMember;
 use App\Model\Entity\AppUser;
 use App\Model\Entity\Feedback;
 use App\Model\Entity\Notification;
-use App\Model\Entity\Team;
 use App\Model\Entity\User;
 use App\View\AppView;
 use Cake\Collection\CollectionInterface;

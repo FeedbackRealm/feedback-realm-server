@@ -26,7 +26,7 @@ class AppsControllerTest extends TestCase
         'app.AppUsers',
         'app.Feedbacks',
         'app.Notifications',
-        'app.Teams',
+        'app.AppMembers',
     ];
 
     /**

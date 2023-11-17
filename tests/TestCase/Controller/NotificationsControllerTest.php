@@ -24,7 +24,7 @@ class NotificationsControllerTest extends TestCase
         'app.Notifications',
         'app.Apps',
         'app.Users',
-        'app.Teams',
+        'app.AppMembers',
     ];
 
     /**

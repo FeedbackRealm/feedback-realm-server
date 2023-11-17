@@ -38,8 +38,8 @@ class AppsController extends AppController
             ->find()
             ->orderDesc('Apps.created')
             ->contain('Users')
-            ->innerJoinWith('Teams', fn(Query $q) => $q->where([
-                'Teams.user_id' => $this->getAuthUser()->id,
+            ->innerJoinWith('AppMembers', fn(Query $q) => $q->where([
+                'AppMembers.user_id' => $this->getAuthUser()->id,
             ]));
         $apps = $this->paginate($query);
 
@@ -80,14 +80,14 @@ class AppsController extends AppController
                 ->matching('Apps', fn(Query $q) => $q->where(['app_id' => $id])),
             ['scope' => 'notifications']
         );
-        $teams = $this->paginate(
-            $this->Apps->Teams
+        $app_members = $this->paginate(
+            $this->Apps->AppMembers
                 ->find()
                 ->limit(100)
                 ->matching('Apps', fn(Query $q) => $q->where(['app_id' => $id])),
-            ['scope' => 'teams']
+            ['scope' => 'app_members']
         );
-        $this->set(compact('app', 'appUsers', 'feedbacks', 'notifications', 'teams'));
+        $this->set(compact('app', 'appUsers', 'feedbacks', 'notifications', 'app_members'));
     }
 
     /**

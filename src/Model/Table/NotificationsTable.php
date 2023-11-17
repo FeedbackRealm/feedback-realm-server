@@ -17,7 +17,7 @@ use Cake\Validation\Validator;
  *
  * @property AppsTable&BelongsTo $Apps
  * @property UsersTable&BelongsTo $Users
- * @property TeamsTable&BelongsTo $Teams
+ * @property AppMembersTable&BelongsTo $AppMembers
  * @method Notification newEmptyEntity()
  * @method Notification newEntity(array $data, array $options = [])
  * @method Notification[] newEntities(array $data, array $options = [])
@@ -52,7 +52,7 @@ class NotificationsTable extends TableBase
 
         $this->addBehavior('Timestamp');
         $this->addBehavior('CounterCache', [
-            'Teams' => ['notification_count'],
+            'AppMembers' => ['notification_count'],
         ]);
         $this->belongsTo('Apps', [
             'foreignKey' => 'app_id',
@@ -62,7 +62,7 @@ class NotificationsTable extends TableBase
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('Teams')
+        $this->belongsTo('AppMembers')
             ->setForeignKey(['app_id', 'user_id'])
             ->setBindingKey(['app_id', 'user_id']);
     }

@@ -26,7 +26,7 @@ use Cake\ORM\Entity;
  *
  * @property App[] $apps
  * @property Notification[] $notifications
- * @property Team[] $teams
+ * @property AppMember[] $app_members
  *
  * @property AuthorizationServiceInterface $authorization
  */
@@ -52,7 +52,7 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
         'modified' => true,
         'apps' => true,
         'notifications' => true,
-        'teams' => true,
+        'app_members' => true,
     ];
 
     /**

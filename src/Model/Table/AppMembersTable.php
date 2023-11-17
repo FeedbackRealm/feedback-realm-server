@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use App\Model\Entity\Team;
+use App\Model\Entity\AppMember;
 use Cake\Datasource\EntityInterface;
 use Cake\Datasource\ResultSetInterface;
 use Cake\ORM\Association\BelongsTo;
@@ -15,28 +15,28 @@ use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 
 /**
- * Teams Model
+ * AppMembers Model
  *
  * @property UsersTable&BelongsTo $Users
  * @property AppsTable&BelongsTo $Apps
  * @property NotificationsTable&HasMany $Notifications
- * @method Team newEmptyEntity()
- * @method Team newEntity(array $data, array $options = [])
- * @method Team[] newEntities(array $data, array $options = [])
- * @method Team get($primaryKey, $options = [])
- * @method Team findOrCreate($search, ?callable $callback = null, $options = [])
- * @method Team patchEntity(EntityInterface $entity, array $data, array $options = [])
- * @method Team[] patchEntities(iterable $entities, array $data, array $options = [])
- * @method Team|false save(EntityInterface $entity, $options = [])
- * @method Team saveOrFail(EntityInterface $entity, $options = [])
- * @method Team[]|ResultSetInterface|false saveMany(iterable $entities, $options = [])
- * @method Team[]|ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
- * @method Team[]|ResultSetInterface|false deleteMany(iterable $entities, $options = [])
- * @method Team[]|ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
+ * @method AppMember newEmptyEntity()
+ * @method AppMember newEntity(array $data, array $options = [])
+ * @method AppMember[] newEntities(array $data, array $options = [])
+ * @method AppMember get($primaryKey, $options = [])
+ * @method AppMember findOrCreate($search, ?callable $callback = null, $options = [])
+ * @method AppMember patchEntity(EntityInterface $entity, array $data, array $options = [])
+ * @method AppMember[] patchEntities(iterable $entities, array $data, array $options = [])
+ * @method AppMember|false save(EntityInterface $entity, $options = [])
+ * @method AppMember saveOrFail(EntityInterface $entity, $options = [])
+ * @method AppMember[]|ResultSetInterface|false saveMany(iterable $entities, $options = [])
+ * @method AppMember[]|ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
+ * @method AppMember[]|ResultSetInterface|false deleteMany(iterable $entities, $options = [])
+ * @method AppMember[]|ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
  * @mixin TimestampBehavior
  * @mixin CounterCacheBehavior
  */
-class TeamsTable extends TableBase
+class AppMembersTable extends TableBase
 {
     /**
      * Returns true when a user is part of an app team
@@ -48,7 +48,7 @@ class TeamsTable extends TableBase
     public static function isAppMember(int $userId, int $appId): bool
     {
         return TableRegistry::getTableLocator()
-            ->get('Teams')
+            ->get('AppMembers')
             ->exists([
                 'user_id' => $userId,
                 'app_id' => $appId,
@@ -64,14 +64,14 @@ class TeamsTable extends TableBase
      */
     public static function isTeamMember(int $user1Id, int $user2Id): bool
     {
-        $teams = TableRegistry::getTableLocator()->get('Teams');
+        $appMembers = TableRegistry::getTableLocator()->get('AppMembers');
 
-        $matching = $teams->subquery()
+        $matching = $appMembers->subquery()
             ->select(['app_id'])
             ->distinct()
             ->where(['user_id' => $user1Id]);
 
-        return $teams->exists([
+        return $appMembers->exists([
             'app_id IN' => $matching,
             'user_id' => $user2Id,
         ]);
@@ -87,13 +87,13 @@ class TeamsTable extends TableBase
     {
         parent::initialize($config);
 
-        $this->setTable('teams');
+        $this->setTable('app_members');
         $this->setDisplayField('display_value');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
         $this->addBehavior('CounterCache', [
-            'Apps' => ['team_count'],
+            'Apps' => ['app_member_count'],
         ]);
 
         $this->belongsTo('Users', [
