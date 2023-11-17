@@ -19,15 +19,12 @@ use Cake\ORM\Query;
 class UsersController extends AppController
 {
     /**
-     * Index method
-     *
-     * @return void Renders view
+     * @inheritDoc
      */
-    public function index()
+    public function initialize(): void
     {
-        $users = $this->paginate($this->Users);
-
-        $this->set(compact('users'));
+        parent::initialize();
+        $this->Authorization->authorizeModel('index', 'add', 'view', 'edit', 'delete');
     }
 
     /**
@@ -42,7 +39,7 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => [],
         ]);
-
+        $this->Authorization->authorize($user);
         $apps = $this->paginate(
             $this->Users->Apps
                 ->find()
@@ -68,26 +65,6 @@ class UsersController extends AppController
     }
 
     /**
-     * Add method
-     *
-     * @return Response|null|void Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $user = $this->Users->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
-        }
-        $this->set(compact('user'));
-    }
-
-    /**
      * Edit method
      *
      * @param string|null $id User id.
@@ -99,6 +76,7 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => [],
         ]);
+        $this->Authorization->authorize($user);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
@@ -109,25 +87,5 @@ class UsersController extends AppController
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
         $this->set(compact('user'));
-    }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id User id.
-     * @return Response|null Redirects to index.
-     * @throws RecordNotFoundException When record not found.
-     */
-    public function delete(?string $id = null): ?Response
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $user = $this->Users->get($id);
-        if ($this->Users->delete($user)) {
-            $this->Flash->success(__('The user has been deleted.'));
-        } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['action' => 'index']);
     }
 }
