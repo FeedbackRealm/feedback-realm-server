@@ -16,7 +16,7 @@ use Cake\Validation\Validator;
  * Feedbacks Model
  *
  * @property AppsTable&BelongsTo $Apps
- * @property AppUsersTable&BelongsTo $AppUsers
+ * @property CustomersTable&BelongsTo $Customers
  * @method Feedback newEmptyEntity()
  * @method Feedback newEntity(array $data, array $options = [])
  * @method Feedback[] newEntities(array $data, array $options = [])
@@ -52,15 +52,15 @@ class FeedbacksTable extends TableBase
         $this->addBehavior('Timestamp');
         $this->addBehavior('CounterCache', [
             'Apps' => ['feedback_count'],
-            'AppUsers' => ['feedback_count'],
+            'Customers' => ['feedback_count'],
         ]);
 
         $this->belongsTo('Apps', [
             'foreignKey' => 'app_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('AppUsers', [
-            'foreignKey' => 'app_user_id',
+        $this->belongsTo('Customers', [
+            'foreignKey' => 'customer_id',
             'joinType' => 'INNER',
         ]);
     }
@@ -78,8 +78,8 @@ class FeedbacksTable extends TableBase
             ->notEmptyString('app_id');
 
         $validator
-            ->nonNegativeInteger('app_user_id')
-            ->notEmptyString('app_user_id');
+            ->nonNegativeInteger('customer_id')
+            ->notEmptyString('customer_id');
 
         $validator
             ->scalar('type')
@@ -117,7 +117,7 @@ class FeedbacksTable extends TableBase
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn('app_id', 'Apps'), ['errorField' => 'app_id']);
-        $rules->add($rules->existsIn('app_user_id', 'AppUsers'), ['errorField' => 'app_user_id']);
+        $rules->add($rules->existsIn('customer_id', 'Customers'), ['errorField' => 'customer_id']);
 
         return $rules;
     }

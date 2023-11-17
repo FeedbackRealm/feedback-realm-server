@@ -22,7 +22,7 @@ $this->assign('title', 'Feedbacks')
             <?php if ($showAppNames) : ?>
                 <th scope="col"><?= $this->Paginator->sort('app_id') ?></th>
             <?php endif; ?>
-            <th scope="col"><?= $this->Paginator->sort('app_user_id') ?></th>
+            <th scope="col"><?= $this->Paginator->sort('customer_id') ?></th>
             <th scope="col"><?= $this->Paginator->sort('type') ?></th>
             <th scope="col"><?= $this->Paginator->sort('title') ?></th>
             <th scope="col"><?= $this->Paginator->sort('created') ?></th>
@@ -41,9 +41,9 @@ $this->assign('title', 'Feedbacks')
                             ]) : '' ?>
                     </td>
                 <?php endif; ?>
-                <td><?= $feedback->has('app_user') ? $this->Html->link($feedback
-                        ->app_user->name, ['controller' =>
-                        'AppUsers', 'action' => 'view', $feedback->app_user
+                <td><?= $feedback->has('customer') ? $this->Html->link($feedback
+                        ->customer->name, ['controller' =>
+                        'Customers', 'action' => 'view', $feedback->customer
                         ->id]) : '' ?>
                 </td>
                 <td><?= h($feedback->type) ?></td>

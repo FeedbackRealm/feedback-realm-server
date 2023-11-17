@@ -11,7 +11,7 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property int $app_id
- * @property int $app_user_id
+ * @property int $customer_id
  * @property string $type
  * @property string $title
  * @property string $body
@@ -21,7 +21,7 @@ use Cake\ORM\Entity;
  * @property FrozenTime|null $deleted
  *
  * @property App $app
- * @property AppUser $app_user
+ * @property Customer $customer
  */
 class Feedback extends Entity
 {
@@ -36,7 +36,7 @@ class Feedback extends Entity
      */
     protected $_accessible = [
         'app_id' => true,
-        'app_user_id' => true,
+        'customer_id' => true,
         'type' => true,
         'title' => true,
         'body' => true,
@@ -45,6 +45,6 @@ class Feedback extends Entity
         'modified' => true,
         'deleted' => true,
         'app' => true,
-        'app_user' => true,
+        'customer' => true,
     ];
 }

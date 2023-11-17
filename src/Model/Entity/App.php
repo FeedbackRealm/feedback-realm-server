@@ -16,13 +16,13 @@ use Cake\ORM\Entity;
  * @property string|null $description
  * @property string $auth_token
  * @property int|null $app_member_count
- * @property int|null $app_user_count
+ * @property int|null $customer_count
  * @property int|null $feedback_count
  * @property FrozenTime|null $created
  * @property FrozenTime|null $modified
  *
  * @property User $user
- * @property AppUser[] $app_users
+ * @property Customer[] $customers
  * @property Feedback[] $feedbacks
  * @property Notification[] $notifications
  * @property AppMember[] $app_members
@@ -45,12 +45,12 @@ class App extends Entity
         'description' => true,
         'auth_token' => true,
         'app_member_count' => true,
-        'app_user_count' => true,
+        'customer_count' => true,
         'feedback_count' => true,
         'created' => true,
         'modified' => true,
         'user' => true,
-        'app_users' => true,
+        'customers' => true,
         'feedbacks' => true,
         'notifications' => true,
         'app_members' => true,

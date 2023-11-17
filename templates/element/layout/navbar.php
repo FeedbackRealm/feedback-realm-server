@@ -18,7 +18,7 @@ use App\View\AppView;
                     <li class="nav-item"><a class="nav-link" href="/users">Users</a></li>
                     <li class="nav-item"><a class="nav-link" href="/notifications">Notifications</a></li>
                     <li class="nav-item"><a class="nav-link" href="/apps">Apps</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/app-users">App Users</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/app-users">Customers</a></li>
                     <li class="nav-item"><a class="nav-link" href="/feedbacks">Feedbacks</a></li>
                     <li class="nav-item"><a class="nav-link" href="/app_members">AppMember</a></li>
                     <li class="nav-item"><a class="nav-link" href="/auth/logout">Log Out</a></li>

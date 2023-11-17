@@ -21,7 +21,7 @@ class FeedbacksFixture extends TestFixture
             [
                 'id' => 1,
                 'app_id' => 1,
-                'app_user_id' => 1,
+                'customer_id' => 1,
                 'type' => 'Lorem ipsum dolor sit amet',
                 'title' => 'Lorem ipsum dolor sit amet',
                 'body' => 'Lorem ipsum dolor sit amet',

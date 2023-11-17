@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use App\Model\Entity\AppUser;
+use App\Model\Entity\Customer;
 use Cake\Datasource\EntityInterface;
 use Cake\Datasource\ResultSetInterface;
 use Cake\ORM\Association\BelongsTo;
@@ -14,27 +14,27 @@ use Cake\ORM\RulesChecker;
 use Cake\Validation\Validator;
 
 /**
- * AppUsers Model
+ * Customers Model
  *
  * @property AppsTable&BelongsTo $Apps
  * @property FeedbacksTable&HasMany $Feedbacks
- * @method AppUser newEmptyEntity()
- * @method AppUser newEntity(array $data, array $options = [])
- * @method AppUser[] newEntities(array $data, array $options = [])
- * @method AppUser get($primaryKey, $options = [])
- * @method AppUser findOrCreate($search, ?callable $callback = null, $options = [])
- * @method AppUser patchEntity(EntityInterface $entity, array $data, array $options = [])
- * @method AppUser[] patchEntities(iterable $entities, array $data, array $options = [])
- * @method AppUser|false save(EntityInterface $entity, $options = [])
- * @method AppUser saveOrFail(EntityInterface $entity, $options = [])
- * @method AppUser[]|ResultSetInterface|false saveMany(iterable $entities, $options = [])
- * @method AppUser[]|ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
- * @method AppUser[]|ResultSetInterface|false deleteMany(iterable $entities, $options = [])
- * @method AppUser[]|ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
+ * @method Customer newEmptyEntity()
+ * @method Customer newEntity(array $data, array $options = [])
+ * @method Customer[] newEntities(array $data, array $options = [])
+ * @method Customer get($primaryKey, $options = [])
+ * @method Customer findOrCreate($search, ?callable $callback = null, $options = [])
+ * @method Customer patchEntity(EntityInterface $entity, array $data, array $options = [])
+ * @method Customer[] patchEntities(iterable $entities, array $data, array $options = [])
+ * @method Customer|false save(EntityInterface $entity, $options = [])
+ * @method Customer saveOrFail(EntityInterface $entity, $options = [])
+ * @method Customer[]|ResultSetInterface|false saveMany(iterable $entities, $options = [])
+ * @method Customer[]|ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
+ * @method Customer[]|ResultSetInterface|false deleteMany(iterable $entities, $options = [])
+ * @method Customer[]|ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
  * @mixin TimestampBehavior
  * @mixin CounterCacheBehavior
  */
-class AppUsersTable extends TableBase
+class CustomersTable extends TableBase
 {
     /**
      * Initialize method
@@ -46,13 +46,13 @@ class AppUsersTable extends TableBase
     {
         parent::initialize($config);
 
-        $this->setTable('app_users');
+        $this->setTable('customers');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
         $this->addBehavior('CounterCache', [
-            'Apps' => ['app_user_count'],
+            'Apps' => ['customer_count'],
         ]);
 
         $this->belongsTo('Apps', [
@@ -60,7 +60,7 @@ class AppUsersTable extends TableBase
             'joinType' => 'INNER',
         ]);
         $this->hasMany('Feedbacks', [
-            'foreignKey' => 'app_user_id',
+            'foreignKey' => 'customer_id',
         ]);
     }
 

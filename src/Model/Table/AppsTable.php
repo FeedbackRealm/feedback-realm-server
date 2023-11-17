@@ -20,7 +20,7 @@ use Cake\Validation\Validator;
  * Apps Model
  *
  * @property UsersTable&BelongsTo $Users
- * @property AppUsersTable&HasMany $AppUsers
+ * @property CustomersTable&HasMany $Customers
  * @property FeedbacksTable&HasMany $Feedbacks
  * @property NotificationsTable&HasMany $Notifications
  * @property AppMembersTable&HasMany $AppMembers
@@ -65,7 +65,7 @@ class AppsTable extends TableBase
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
         ]);
-        $this->hasMany('AppUsers', [
+        $this->hasMany('Customers', [
             'foreignKey' => 'app_id',
         ]);
         $this->hasMany('Feedbacks', [
@@ -117,8 +117,8 @@ class AppsTable extends TableBase
             ->allowEmptyString('app_member_count');
 
         $validator
-            ->nonNegativeInteger('app_user_count')
-            ->allowEmptyString('app_user_count');
+            ->nonNegativeInteger('customer_count')
+            ->allowEmptyString('customer_count');
 
         $validator
             ->nonNegativeInteger('feedback_count')

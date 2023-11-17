@@ -7,7 +7,7 @@ use Cake\I18n\FrozenTime;
 use Cake\ORM\Entity;
 
 /**
- * AppUser Entity
+ * Customer Entity
  *
  * @property int $id
  * @property int $app_id
@@ -22,7 +22,7 @@ use Cake\ORM\Entity;
  * @property App $app
  * @property Feedback[] $feedbacks
  */
-class AppUser extends Entity
+class Customer extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().

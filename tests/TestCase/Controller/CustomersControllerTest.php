@@ -3,15 +3,16 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller;
 
+use App\Controller\CustomersController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Controller\AppUsersController Test Case
+ * App\Controller\CustomersController Test Case
  *
- * @uses \App\Controller\AppUsersController
+ * @uses \App\Controller\CustomersController
  */
-class AppUsersControllerTest extends TestCase
+class CustomersControllerTest extends TestCase
 {
     use IntegrationTestTrait;
 
@@ -21,7 +22,7 @@ class AppUsersControllerTest extends TestCase
      * @var array<string>
      */
     protected $fixtures = [
-        'app.AppUsers',
+        'app.Customers',
         'app.Apps',
         'app.Feedbacks',
     ];
@@ -30,7 +31,7 @@ class AppUsersControllerTest extends TestCase
      * Test index method
      *
      * @return void
-     * @uses \App\Controller\AppUsersController::index()
+     * @uses \App\Controller\CustomersController::index()
      */
     public function testIndex(): void
     {
@@ -41,7 +42,7 @@ class AppUsersControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @uses \App\Controller\AppUsersController::view()
+     * @uses \App\Controller\CustomersController::view()
      */
     public function testView(): void
     {
@@ -52,7 +53,7 @@ class AppUsersControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @uses \App\Controller\AppUsersController::add()
+     * @uses \App\Controller\CustomersController::add()
      */
     public function testAdd(): void
     {
@@ -63,7 +64,7 @@ class AppUsersControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @uses \App\Controller\AppUsersController::edit()
+     * @uses \App\Controller\CustomersController::edit()
      */
     public function testEdit(): void
     {
@@ -74,7 +75,7 @@ class AppUsersControllerTest extends TestCase
      * Test delete method
      *
      * @return void
-     * @uses \App\Controller\AppUsersController::delete()
+     * @uses \App\Controller\CustomersController::delete()
      */
     public function testDelete(): void
     {

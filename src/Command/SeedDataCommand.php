@@ -4,11 +4,11 @@ declare(strict_types=1);
 namespace App\Command;
 
 use App\Model\Entity\App;
-use App\Model\Entity\AppUser;
+use App\Model\Entity\Customer;
 use App\Model\Entity\User;
 use App\Model\Table\AppMembersTable;
 use App\Model\Table\AppsTable;
-use App\Model\Table\AppUsersTable;
+use App\Model\Table\CustomersTable;
 use App\Model\Table\FeedbacksTable;
 use App\Model\Table\UsersTable;
 use Cake\Command\Command;
@@ -32,7 +32,7 @@ use Throwable;
  * @property Generator $Faker
  * @property UsersTable|Table $Users
  * @property AppsTable|Table $Apps
- * @property AppUsersTable|Table $AppUsers
+ * @property CustomersTable|Table $Customers
  * @property AppMembersTable|Table $AppMembers
  * @property FeedbacksTable|Table $Feedbacks
  */
@@ -41,7 +41,7 @@ class SeedDataCommand extends Command
     protected const NUM_USERS = 9;
     protected const NUM_APPS = 9;
     protected const NUM_APP_MEMBERS = 4;
-    protected const NUM_APP_USERS = 15;
+    protected const NUM_CUSTOMERS = 15;
     protected const NUM_FEEDBACKS = 5;
 
     /**
@@ -59,7 +59,7 @@ class SeedDataCommand extends Command
         $this->Faker = Factory::create();
         $this->Users = $this->fetchTable('Users');
         $this->Apps = $this->fetchTable('Apps');
-        $this->AppUsers = $this->fetchTable('AppUsers');
+        $this->Customers = $this->fetchTable('Customers');
         $this->AppMembers = $this->fetchTable('AppMembers');
         $this->Feedbacks = $this->fetchTable('Feedbacks');
     }
@@ -110,8 +110,8 @@ class SeedDataCommand extends Command
         $users[] = $this->makeDefaultUser();
         $apps = $this->makeApps(self::NUM_APPS, $users);
         $this->makeAppMembers(self::NUM_APP_MEMBERS, $users, $apps);
-        $appUsers = $this->makeAppUsers(self::NUM_APP_USERS, $apps);
-        $this->makeFeedbacks(self::NUM_FEEDBACKS, $appUsers);
+        $customers = $this->makeCustomers(self::NUM_CUSTOMERS, $apps);
+        $this->makeFeedbacks(self::NUM_FEEDBACKS, $customers);
     }
 
     /**
@@ -207,12 +207,12 @@ class SeedDataCommand extends Command
     /**
      * @param int $count
      * @param App[]|EntityInterface[] $apps
-     * @return AppUser[]|EntityInterface[]
+     * @return Customer[]|EntityInterface[]
      * @throws Exception
      */
-    protected function makeAppUsers(int $count, array $apps): array
+    protected function makeCustomers(int $count, array $apps): array
     {
-        $this->io->out('Creating app users');
+        $this->io->out('Creating customers');
         $data = [];
         foreach ($apps as $app) {
             $maxCount = $this->Faker->numberBetween(0, $count);
@@ -228,28 +228,28 @@ class SeedDataCommand extends Command
                 ];
             }
         }
-        $entities = $this->AppUsers->newEntities($data);
-        $this->AppUsers->saveManyOrFail($entities);
+        $entities = $this->Customers->newEntities($data);
+        $this->Customers->saveManyOrFail($entities);
 
         return $entities;
     }
 
     /**
      * @param int $count
-     * @param AppUser[]|EntityInterface[] $appUsers
+     * @param Customer[]|EntityInterface[] $customers
      * @return void
      * @throws Exception
      */
-    protected function makeFeedBacks(int $count, array $appUsers): void
+    protected function makeFeedBacks(int $count, array $customers): void
     {
         $this->io->out('Creating feedbacks');
         $data = [];
-        foreach ($appUsers as $appUser) {
+        foreach ($customers as $customer) {
             $maxCount = $this->Faker->numberBetween(0, $count);
             for ($i = 0; $i < $maxCount; $i++) {
                 $data[] = [
-                    'app_id' => $appUser->get('app_id'),
-                    'app_user_id' => $appUser->get('id'),
+                    'app_id' => $customer->get('app_id'),
+                    'customer_id' => $customer->get('id'),
                     'type' => $this->Faker->randomElement(['Bug', 'Feature Request', 'Comment', 'Question']),
                     'title' => $this->Faker->words($this->Faker->numberBetween(1, 5), true),
                     'body' => $this->Faker->sentences($this->Faker->numberBetween(1, 5), true),

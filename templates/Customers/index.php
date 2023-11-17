@@ -1,20 +1,20 @@
 <?php
 /**
  * @var AppView $this
- * @var AppUser[]|CollectionInterface $appUsers
+ * @var Customer[]|CollectionInterface $customers
  * @var bool $showAppNames
  */
 
-use App\Model\Entity\AppUser;
+use App\Model\Entity\Customer;
 use App\View\AppView;
 use Cake\Collection\CollectionInterface;
 
 $this->extend('/layout/common/index');
 
-$this->assign('title', 'App Users')
+$this->assign('title', 'Customers')
 ?>
-<?php if ($appUsers->count() === 0) : ?>
-    <p class="lead">There are currently no App Users.</p>
+<?php if ($customers->count() === 0) : ?>
+    <p class="lead">There are currently no Customers.</p>
 <?php else : ?>
     <table class="table table-striped">
         <thead>
@@ -30,27 +30,27 @@ $this->assign('title', 'App Users')
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($appUsers as $appUser) : ?>
+        <?php foreach ($customers as $customer) : ?>
             <tr>
                 <?php if ($showAppNames) : ?>
                     <td>
-                        <?= $appUser->app
-                            ? $this->Html->link($appUser->app->name, [
+                        <?= $customer->app
+                            ? $this->Html->link($customer->app->name, [
                                 'controller' => 'Apps',
                                 'action' => 'view',
-                                $appUser->app_id,
+                                $customer->app_id,
                             ])
-                            : $appUser->app_id ?>
+                            : $customer->app_id ?>
                     </td>
                 <?php endif ?>
-                <td><?= h($appUser->identifier) ?></td>
-                <td><?= h($appUser->name) ?></td>
-                <td><?= $this->Number->format((int)$appUser->feedback_count) ?></td>
-                <td><?= h($appUser->created) ?></td>
+                <td><?= h($customer->identifier) ?></td>
+                <td><?= h($customer->name) ?></td>
+                <td><?= $this->Number->format((int)$customer->feedback_count) ?></td>
+                <td><?= h($customer->created) ?></td>
                 <td class="actions">
                     <?= $this->element('/layout/table_row_actions', [
-                        'entity' => $appUser,
-                        'displayName' => 'App User',
+                        'entity' => $customer,
+                        'displayName' => 'Customer',
                         'actions' => ['view', 'edit'],
                     ]) ?>
                 </td>
