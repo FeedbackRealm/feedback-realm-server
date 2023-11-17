@@ -39,7 +39,7 @@ class CustomersController extends AppController
             ->find()
             ->contain('Apps')
             ->orderDesc('Customers.created')
-            ->innerJoin('AppMembers', [
+            ->innerJoin(['AppMembers' => 'app_members'], [
                 'AppMembers.app_id = Customers.app_id',
                 'AppMembers.user_id' => $this->getAuthUser()->id,
             ]);
