@@ -38,6 +38,12 @@ use Throwable;
  */
 class SeedDataCommand extends Command
 {
+    protected const NUM_USERS = 9;
+    protected const NUM_APPS = 9;
+    protected const NUM_TEAMS = 4;
+    protected const NUM_APP_USERS = 15;
+    protected const NUM_FEEDBACKS = 5;
+
     /**
      * Hook method invoked by CakePHP when a command is about to be executed.
      *
@@ -100,11 +106,30 @@ class SeedDataCommand extends Command
      */
     protected function main()
     {
-        $users = $this->makeUsers(9);
-        $apps = $this->makeApps(9, $users);
-        $this->makeTeams(4, $users, $apps);
-        $appUsers = $this->makeAppUsers(15, $apps);
-        $this->makeFeedbacks(5, $appUsers);
+        $users = $this->makeUsers(self::NUM_USERS);
+        $users[] = $this->makeDefaultUser();
+        $apps = $this->makeApps(self::NUM_APPS, $users);
+        $this->makeTeams(self::NUM_TEAMS, $users, $apps);
+        $appUsers = $this->makeAppUsers(self::NUM_APP_USERS, $apps);
+        $this->makeFeedbacks(self::NUM_FEEDBACKS, $appUsers);
+    }
+
+    /**
+     * @return User|EntityInterface
+     */
+    protected function makeDefaultUser(): EntityInterface
+    {
+        $this->io->out('Creating default user');
+        $entity = $this->Users->newEntity([
+            'name' => env('DEFAULT_USER_NAME', $this->Faker->name),
+            'email' => env('DEFAULT_USER_EMAIL', $this->Faker->unique()->email),
+            'password' => env('DEFAULT_USER_PASSWORD', $this->Faker->password(8)),
+            'email_verified' => true,
+        ]);
+
+        $this->Users->saveOrFail($entity);
+
+        return $entity;
     }
 
     /**
@@ -115,14 +140,7 @@ class SeedDataCommand extends Command
     protected function makeUsers(int $count = 10): array
     {
         $this->io->out('Creating users');
-        $data = [
-            [
-                'name' => 'Angel Moreno',
-                'email' => 'angelxmoreno@gmail.com',
-                'password' => 'abcd1234',
-                'email_verified' => true,
-            ],
-        ];
+        $data = [];
         for ($i = 0; $i < $count; $i++) {
             $data[] = [
                 'name' => $this->Faker->name(),
