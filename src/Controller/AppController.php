@@ -17,9 +17,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Entity\User;
 use Authentication\Controller\Component\AuthenticationComponent;
 use Authorization\Controller\Component\AuthorizationComponent;
 use Cake\Controller\Controller;
+use Cake\Http\Exception\ForbiddenException;
 use Exception;
 
 /**
@@ -59,5 +61,22 @@ class AppController extends Controller
          * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
          */
         //$this->loadComponent('FormProtection');
+    }
+
+    /**
+     * Gets the current logged-in user
+     *
+     * @return User
+     */
+    protected function getAuthUser(): User
+    {
+        $identity = $this->Authentication->getIdentity();
+        if (!$identity) {
+            throw new ForbiddenException('No Authenticated User found');
+        }
+        /** @var User $user */
+        $user = $identity->getOriginalData();
+
+        return $user;
     }
 }

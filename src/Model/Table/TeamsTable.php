@@ -11,6 +11,7 @@ use Cake\ORM\Association\HasMany;
 use Cake\ORM\Behavior\CounterCacheBehavior;
 use Cake\ORM\Behavior\TimestampBehavior;
 use Cake\ORM\RulesChecker;
+use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 
 /**
@@ -37,6 +38,45 @@ use Cake\Validation\Validator;
  */
 class TeamsTable extends TableBase
 {
+    /**
+     * Returns true when a user is part of an app team
+     *
+     * @param int $userId
+     * @param int $appId
+     * @return bool
+     */
+    public static function isAppMember(int $userId, int $appId): bool
+    {
+        return TableRegistry::getTableLocator()
+            ->get('Teams')
+            ->exists([
+                'user_id' => $userId,
+                'app_id' => $appId,
+            ]);
+    }
+
+    /**
+     * Returns true is 2 user ids exist in the same app
+     *
+     * @param int $user1Id
+     * @param int $user2Id
+     * @return bool
+     */
+    public static function isTeamMember(int $user1Id, int $user2Id): bool
+    {
+        $teams = TableRegistry::getTableLocator()->get('Teams');
+
+        $matching = $teams->subquery()
+            ->select(['app_id'])
+            ->distinct()
+            ->where(['user_id' => $user1Id]);
+
+        return $teams->exists([
+            'app_id IN' => $matching,
+            'user_id' => $user2Id,
+        ]);
+    }
+
     /**
      * Initialize method
      *

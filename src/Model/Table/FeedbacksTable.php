@@ -52,6 +52,7 @@ class FeedbacksTable extends TableBase
         $this->addBehavior('Timestamp');
         $this->addBehavior('CounterCache', [
             'Apps' => ['feedback_count'],
+            'AppUsers' => ['feedback_count'],
         ]);
 
         $this->belongsTo('Apps', [
@@ -98,6 +99,10 @@ class FeedbacksTable extends TableBase
         $validator
             ->scalar('meta')
             ->allowEmptyString('meta');
+
+        $validator
+            ->dateTime('deleted')
+            ->allowEmptyDateTime('deleted');
 
         return $validator;
     }
