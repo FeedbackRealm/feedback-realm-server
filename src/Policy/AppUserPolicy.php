@@ -22,7 +22,7 @@ class AppUserPolicy
      */
     public function canEdit(IdentityInterface $user, AppUser $appUser): bool
     {
-        return TeamsTable::isTeamMember($user->id, $appUser->app_id);
+        return TeamsTable::isAppMember($user->id, $appUser->app_id);
     }
 
     /**
@@ -46,6 +46,6 @@ class AppUserPolicy
      */
     public function canView(IdentityInterface $user, AppUser $appUser): bool
     {
-        return TeamsTable::isTeamMember($user->id, $appUser->app_id);
+        return TeamsTable::isAppMember($user->id, $appUser->app_id);
     }
 }

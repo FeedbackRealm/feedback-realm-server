@@ -46,6 +46,6 @@ class AppPolicy
      */
     public function canView(IdentityInterface $user, App $app): bool
     {
-        return TeamsTable::isTeamMember($user->id, $app->id);
+        return TeamsTable::isAppMember($user->id, $app->id);
     }
 }

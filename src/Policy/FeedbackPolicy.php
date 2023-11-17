@@ -46,6 +46,6 @@ class FeedbackPolicy
      */
     public function canView(IdentityInterface $user, Feedback $feedback): bool
     {
-        return TeamsTable::isTeamMember($user->id, $feedback->app_id);
+        return TeamsTable::isAppMember($user->id, $feedback->app_id);
     }
 }
