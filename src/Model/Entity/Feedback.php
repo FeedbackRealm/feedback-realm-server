@@ -18,6 +18,7 @@ use Cake\ORM\Entity;
  * @property string|null $meta
  * @property FrozenTime|null $created
  * @property FrozenTime|null $modified
+ * @property FrozenTime|null $deleted
  *
  * @property App $app
  * @property AppUser $app_user
@@ -42,6 +43,7 @@ class Feedback extends Entity
         'meta' => true,
         'created' => true,
         'modified' => true,
+        'deleted' => true,
         'app' => true,
         'app_user' => true,
     ];

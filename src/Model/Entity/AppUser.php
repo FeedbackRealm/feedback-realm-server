@@ -14,8 +14,10 @@ use Cake\ORM\Entity;
  * @property string $identifier
  * @property string|null $name
  * @property string|null $meta
+ * @property int|null $feedback_count
  * @property FrozenTime|null $created
  * @property FrozenTime|null $modified
+ * @property FrozenTime|null $deleted
  *
  * @property App $app
  * @property Feedback[] $feedbacks
@@ -36,8 +38,10 @@ class AppUser extends Entity
         'identifier' => true,
         'name' => true,
         'meta' => true,
+        'feedback_count' => true,
         'created' => true,
         'modified' => true,
+        'deleted' => true,
         'app' => true,
         'feedbacks' => true,
     ];

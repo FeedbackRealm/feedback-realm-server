@@ -14,9 +14,6 @@
  */
 #}
 {% set annotations = DocBlock.buildTableAnnotations(associations, associationInfo, behaviors, entity, namespace) %}
-{% set upsertMethod = "@method \\App\\Model\\Entity\\#{ entity } upsert(array $search, ?array $data = null)" %}
-{% set copyFromMethod = "@method \\App\\Model\\Entity\\#{ entity } copyFrom(\\Cake\\Datasource\\EntityInterface $from)" %}
-{% set annotations = annotations|merge([upsertMethod,copyFromMethod]) %}
 {% set generatedFunctions = ['initialize'] %}
 {{ element('Bake.file_header', {
     namespace: fileBuilder.namespace,

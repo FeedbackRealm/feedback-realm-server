@@ -19,18 +19,39 @@ use Cake\ORM\Query;
 class AppUsersController extends AppController
 {
     /**
+     * @inheritDoc
+     */
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->Authorization->authorizeModel('index', 'add', 'view', 'edit', 'delete');
+    }
+
+    /**
      * Index method
      *
+     * @param int|null $appId
      * @return void Renders view
      */
-    public function index()
+    public function index(?int $appId = null)
     {
-        $this->paginate = [
-            'contain' => ['Apps'],
-        ];
-        $appUsers = $this->paginate($this->AppUsers);
+        $query = $this->AppUsers
+            ->find()
+            ->contain('Apps')
+            ->orderDesc('AppUsers.created')
+            ->innerJoin('Teams', [
+                'Teams.app_id = AppUsers.app_id',
+                'Teams.user_id' => $this->getAuthUser()->id,
+            ]);
+        $showAppNames = true;
+        if ($appId) {
+            $query->where(['AppUsers.app_id' => $appId]);
+            $showAppNames = false;
+        }
 
-        $this->set(compact('appUsers'));
+        $appUsers = $this->paginate($query);
+
+        $this->set(compact('appUsers', 'showAppNames'));
     }
 
     /**
@@ -45,7 +66,7 @@ class AppUsersController extends AppController
         $appUser = $this->AppUsers->get($id, [
             'contain' => ['Apps'],
         ]);
-
+        $this->Authorization->authorize($appUser);
         $feedbacks = $this->paginate(
             $this->AppUsers->Feedbacks
                 ->find()
@@ -54,27 +75,6 @@ class AppUsersController extends AppController
             ['scope' => 'feedbacks']
         );
         $this->set(compact('appUser', 'feedbacks'));
-    }
-
-    /**
-     * Add method
-     *
-     * @return Response|null|void Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $appUser = $this->AppUsers->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $appUser = $this->AppUsers->patchEntity($appUser, $this->request->getData());
-            if ($this->AppUsers->save($appUser)) {
-                $this->Flash->success(__('The app user has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The app user could not be saved. Please, try again.'));
-        }
-        $apps = $this->AppUsers->Apps->find('list', ['limit' => 200])->all();
-        $this->set(compact('appUser', 'apps'));
     }
 
     /**
@@ -87,38 +87,20 @@ class AppUsersController extends AppController
     public function edit(?string $id = null)
     {
         $appUser = $this->AppUsers->get($id, [
-            'contain' => [],
+            'contain' => ['Apps'],
         ]);
+        $this->Authorization->authorize($appUser);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $appUser = $this->AppUsers->patchEntity($appUser, $this->request->getData());
+            $appUser = $this->AppUsers->patchEntity($appUser, $this->request->getData(), [
+                'fields' => ['name', 'meta'],
+            ]);
             if ($this->AppUsers->save($appUser)) {
                 $this->Flash->success(__('The app user has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'index', $appUser->app_id]);
             }
             $this->Flash->error(__('The app user could not be saved. Please, try again.'));
         }
-        $apps = $this->AppUsers->Apps->find('list', ['limit' => 200])->all();
-        $this->set(compact('appUser', 'apps'));
-    }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id App User id.
-     * @return Response|null Redirects to index.
-     * @throws RecordNotFoundException When record not found.
-     */
-    public function delete(?string $id = null): ?Response
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $appUser = $this->AppUsers->get($id);
-        if ($this->AppUsers->delete($appUser)) {
-            $this->Flash->success(__('The app user has been deleted.'));
-        } else {
-            $this->Flash->error(__('The app user could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['action' => 'index']);
+        $this->set(compact('appUser'));
     }
 }

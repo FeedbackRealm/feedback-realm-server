@@ -30,28 +30,6 @@ class FeedbacksTableTest extends TestCase
     ];
 
     /**
-     * Test validationDefault method
-     *
-     * @return void
-     * @uses FeedbacksTable::validationDefault
-     */
-    public function testValidationDefault(): void
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     * @uses FeedbacksTable::buildRules
-     */
-    public function testBuildRules(): void
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
      * setUp method
      *
      * @return void
@@ -73,5 +51,27 @@ class FeedbacksTableTest extends TestCase
         unset($this->Feedbacks);
 
         parent::tearDown();
+    }
+
+    /**
+     * Test validationDefault method
+     *
+     * @return void
+     * @uses FeedbacksTable::validationDefault
+     */
+    public function testValidationDefault(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test buildRules method
+     *
+     * @return void
+     * @uses FeedbacksTable::buildRules
+     */
+    public function testBuildRules(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
     }
 }

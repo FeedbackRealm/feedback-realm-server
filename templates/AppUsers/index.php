@@ -1,7 +1,8 @@
 <?php
 /**
-* @var AppView $this
+ * @var AppView $this
  * @var AppUser[]|CollectionInterface $appUsers
+ * @var bool $showAppNames
  */
 
 use App\Model\Entity\AppUser;
@@ -12,43 +13,49 @@ $this->extend('/layout/common/index');
 
 $this->assign('title', 'App Users')
 ?>
-<?php if($appUsers->count() === 0):?>
-<p class="lead">There are currently no App Users.</p>
-<?php else :?>
-<table class="table table-striped">
-    <thead>
-    <tr>
-                    <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('app_id') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('identifier') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('meta') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('created') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('deleted') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php foreach ($appUsers as $appUser) : ?>
-    <tr>
-                                                                                                                                                                <td><?= $this->Number->format($appUser->id) ?></td>
-                                                                                                                                                <td><?= $appUser->has('app') ? $this->Html->link($appUser
-                            ->app->name, ['controller' =>
-                            'Apps', 'action' => 'view', $appUser->app
-                            ->id]) : '' ?>
-                        </td>
-                                                                                                                                                                                                                            <td><?= h($appUser->identifier) ?></td>
-                                                                                                                                                                                            <td><?= h($appUser->name) ?></td>
-                                                                                                                                                                                            <td><?= h($appUser->meta) ?></td>
-                                                                                                                                                                                            <td><?= h($appUser->created) ?></td>
-                                                                                                                                                                                            <td><?= h($appUser->modified) ?></td>
-                                                                                                                                                                                            <td><?= h($appUser->deleted) ?></td>
-                                            <td class="actions">
-            <?=$this->element('/layout/table_row_actions', ['entity' => $appUser])?>
-        </td>
-    </tr>
-    <?php endforeach; ?>
-    </tbody>
-</table>
+<?php if ($appUsers->count() === 0) : ?>
+    <p class="lead">There are currently no App Users.</p>
+<?php else : ?>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <?php if ($showAppNames) : ?>
+                <th scope="col"><?= $this->Paginator->sort('app_id') ?></th>
+            <?php endif ?>
+            <th scope="col"><?= $this->Paginator->sort('identifier') ?></th>
+            <th scope="col"><?= $this->Paginator->sort('name') ?></th>
+            <th scope="col"><?= $this->Paginator->sort('feedback_count', 'FeedBacks') ?></th>
+            <th scope="col"><?= $this->Paginator->sort('created') ?></th>
+            <th scope="col" class="actions"><?= __('Actions') ?></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($appUsers as $appUser) : ?>
+            <tr>
+                <?php if ($showAppNames) : ?>
+                    <td>
+                        <?= $appUser->app
+                            ? $this->Html->link($appUser->app->name, [
+                                'controller' => 'Apps',
+                                'action' => 'view',
+                                $appUser->app_id,
+                            ])
+                            : $appUser->app_id ?>
+                    </td>
+                <?php endif ?>
+                <td><?= h($appUser->identifier) ?></td>
+                <td><?= h($appUser->name) ?></td>
+                <td><?= $this->Number->format((int)$appUser->feedback_count) ?></td>
+                <td><?= h($appUser->created) ?></td>
+                <td class="actions">
+                    <?= $this->element('/layout/table_row_actions', [
+                        'entity' => $appUser,
+                        'displayName' => 'App User',
+                        'actions' => ['view', 'edit'],
+                    ]) ?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
 <?php endif; ?>
