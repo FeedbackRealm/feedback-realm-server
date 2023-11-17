@@ -21,7 +21,7 @@ class CustomBakePlugin extends BasePlugin
      * The host application is provided as an argument. This allows you to load
      * additional plugin dependencies, or attach events.
      *
-     * @param \Cake\Core\PluginApplicationInterface $app The host application
+     * @param PluginApplicationInterface $app The host application
      * @return void
      */
     public function bootstrap(PluginApplicationInterface $app): void
@@ -34,7 +34,7 @@ class CustomBakePlugin extends BasePlugin
      * If your plugin has many routes and you would like to isolate them into a separate file,
      * you can create `$plugin/config/routes.php` and delete this method.
      *
-     * @param \Cake\Routing\RouteBuilder $routes The route builder to update.
+     * @param RouteBuilder $routes The route builder to update.
      * @return void
      */
     public function routes(RouteBuilder $routes): void
@@ -54,8 +54,8 @@ class CustomBakePlugin extends BasePlugin
     /**
      * Add middleware for the plugin.
      *
-     * @param \Cake\Http\MiddlewareQueue $middlewareQueue The middleware queue to update.
-     * @return \Cake\Http\MiddlewareQueue
+     * @param MiddlewareQueue $middlewareQueue The middleware queue to update.
+     * @return MiddlewareQueue
      */
     public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
     {
@@ -67,8 +67,8 @@ class CustomBakePlugin extends BasePlugin
     /**
      * Add commands for the plugin.
      *
-     * @param \Cake\Console\CommandCollection $commands The command collection to update.
-     * @return \Cake\Console\CommandCollection
+     * @param CommandCollection $commands The command collection to update.
+     * @return CommandCollection
      */
     public function console(CommandCollection $commands): CommandCollection
     {
@@ -82,7 +82,7 @@ class CustomBakePlugin extends BasePlugin
     /**
      * Register application container services.
      *
-     * @param \Cake\Core\ContainerInterface $container The Container to update.
+     * @param ContainerInterface $container The Container to update.
      * @return void
      * @link https://book.cakephp.org/4/en/development/dependency-injection.html#dependency-injection
      */

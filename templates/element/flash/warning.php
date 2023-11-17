@@ -1,9 +1,12 @@
 <?php
 /**
- * @var \App\View\AppView $this
+ * @var AppView $this
  * @var array $params
  * @var string $message
  */
+
+use App\View\AppView;
+
 if (!isset($params['escape']) || $params['escape'] !== false) {
     $message = h($message);
 }
