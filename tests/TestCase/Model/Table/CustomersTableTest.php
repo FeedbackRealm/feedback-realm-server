@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\AppUsersTable;
+use App\Model\Table\CustomersTable;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\AppUsersTable Test Case
+ * App\Model\Table\CustomersTable Test Case
  */
-class AppUsersTableTest extends TestCase
+class CustomersTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var AppUsersTable
+     * @var \App\Model\Table\CustomersTable
      */
-    protected $AppUsers;
+    protected $Customers;
 
     /**
      * Fixtures
@@ -24,7 +24,7 @@ class AppUsersTableTest extends TestCase
      * @var array<string>
      */
     protected $fixtures = [
-        'app.AppUsers',
+        'app.Customers',
         'app.Apps',
         'app.Feedbacks',
     ];
@@ -37,8 +37,8 @@ class AppUsersTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('AppUsers') ? [] : ['className' => AppUsersTable::class];
-        $this->AppUsers = $this->getTableLocator()->get('AppUsers', $config);
+        $config = $this->getTableLocator()->exists('Customers') ? [] : ['className' => CustomersTable::class];
+        $this->Customers = $this->getTableLocator()->get('Customers', $config);
     }
 
     /**
@@ -48,7 +48,7 @@ class AppUsersTableTest extends TestCase
      */
     protected function tearDown(): void
     {
-        unset($this->AppUsers);
+        unset($this->Customers);
 
         parent::tearDown();
     }
@@ -57,7 +57,7 @@ class AppUsersTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses AppUsersTable::validationDefault
+     * @uses \App\Model\Table\CustomersTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -68,7 +68,7 @@ class AppUsersTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
-     * @uses AppUsersTable::buildRules
+     * @uses \App\Model\Table\CustomersTable::buildRules()
      */
     public function testBuildRules(): void
     {

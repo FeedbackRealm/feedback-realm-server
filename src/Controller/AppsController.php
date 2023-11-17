@@ -59,12 +59,12 @@ class AppsController extends AppController
             'contain' => ['Users'],
         ]);
         $this->Authorization->authorize($app);
-        $appUsers = $this->paginate(
-            $this->Apps->AppUsers
+        $customers = $this->paginate(
+            $this->Apps->Customers
                 ->find()
                 ->limit(100)
                 ->matching('Apps', fn(Query $q) => $q->where(['app_id' => $id])),
-            ['scope' => 'appUsers']
+            ['scope' => 'customers']
         );
         $feedbacks = $this->paginate(
             $this->Apps->Feedbacks
@@ -87,7 +87,7 @@ class AppsController extends AppController
                 ->matching('Apps', fn(Query $q) => $q->where(['app_id' => $id])),
             ['scope' => 'app_members']
         );
-        $this->set(compact('app', 'appUsers', 'feedbacks', 'notifications', 'app_members'));
+        $this->set(compact('app', 'customers', 'feedbacks', 'notifications', 'app_members'));
     }
 
     /**

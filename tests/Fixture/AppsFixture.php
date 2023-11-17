@@ -26,7 +26,7 @@ class AppsFixture extends TestFixture
                 'description' => 'Lorem ipsum dolor sit amet',
                 'auth_token' => '82bbbe45-6882-498c-91b8-1ac7fb360c53',
                 'app_member_count' => 1,
-                'app_user_count' => 1,
+                'customer_count' => 1,
                 'feedback_count' => 1,
                 'created' => '2023-11-14 07:54:48',
                 'modified' => '2023-11-14 07:54:48',

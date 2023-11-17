@@ -76,7 +76,7 @@ $this->assign('entity', $user)
                         <th scope="col"><?= __('Description') ?></th>
                         <th scope="col"><?= __('Auth Token') ?></th>
                         <th scope="col"><?= __('AppMember Count') ?></th>
-                        <th scope="col"><?= __('App User Count') ?></th>
+                        <th scope="col"><?= __('Customer Count') ?></th>
                         <th scope="col"><?= __('Feedback Count') ?></th>
                         <th scope="col"><?= __('Created') ?></th>
                         <th scope="col"><?= __('Modified') ?></th>
@@ -92,7 +92,7 @@ $this->assign('entity', $user)
                             <td><?= h($apps->description) ?></td>
                             <td><?= h($apps->auth_token) ?></td>
                             <td><?= h($apps->app_member_count) ?></td>
-                            <td><?= h($apps->app_user_count) ?></td>
+                            <td><?= h($apps->customer_count) ?></td>
                             <td><?= h($apps->feedback_count) ?></td>
                             <td><?= h($apps->created) ?></td>
                             <td><?= h($apps->modified) ?></td>

@@ -26,7 +26,7 @@ class FeedbacksTableTest extends TestCase
     protected $fixtures = [
         'app.Feedbacks',
         'app.Apps',
-        'app.AppUsers',
+        'app.Customers',
     ];
 
     /**

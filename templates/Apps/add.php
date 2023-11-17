@@ -3,7 +3,7 @@
  * @var AppView $this
  * @var App $app
  * @var User[]|CollectionInterface $users
- * @var AppUser[]|CollectionInterface $appUsers
+ * @var Customer[]|CollectionInterface $customers
  * @var Feedback[]|CollectionInterface $feedbacks
  * @var Notification[]|CollectionInterface $notifications
  * @var AppMember[]|CollectionInterface $app_members
@@ -11,7 +11,7 @@
 
 use App\Model\Entity\App;
 use App\Model\Entity\AppMember;
-use App\Model\Entity\AppUser;
+use App\Model\Entity\Customer;
 use App\Model\Entity\Feedback;
 use App\Model\Entity\Notification;
 use App\Model\Entity\User;

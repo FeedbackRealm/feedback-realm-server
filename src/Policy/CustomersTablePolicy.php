@@ -7,9 +7,9 @@ use Authorization\IdentityInterface;
 use Cake\ORM\Table;
 
 /**
- * AppUsers policy
+ * Customers policy
  */
-class AppUsersTablePolicy extends BaseTablePolicy
+class CustomersTablePolicy extends BaseTablePolicy
 {
     /**
      * @inheritDoc

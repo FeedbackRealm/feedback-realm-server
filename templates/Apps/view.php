@@ -2,7 +2,7 @@
 /**
  * @var AppView $this
  * @var App $app
- * @var AppUser[]|CollectionInterface $appUsers
+ * @var Customer[]|CollectionInterface $customers
  * @var Feedback[]|CollectionInterface $feedbacks
  * @var Notification[]|CollectionInterface $notifications
  * @var AppMember[]|CollectionInterface $app_members
@@ -10,7 +10,7 @@
 
 use App\Model\Entity\App;
 use App\Model\Entity\AppMember;
-use App\Model\Entity\AppUser;
+use App\Model\Entity\Customer;
 use App\Model\Entity\Feedback;
 use App\Model\Entity\Notification;
 use App\View\AppView;
@@ -62,8 +62,8 @@ $this->assign('entity', $app)
                 <td><?= $this->Number->format($app->app_member_count) ?></td>
             </tr>
             <tr>
-                <th scope="row"><?= __('App User Count') ?></th>
-                <td><?= $this->Number->format($app->app_user_count) ?></td>
+                <th scope="row"><?= __('Customer Count') ?></th>
+                <td><?= $this->Number->format($app->customer_count) ?></td>
             </tr>
             <tr>
                 <th scope="row"><?= __('Feedback Count') ?></th>
@@ -84,8 +84,8 @@ $this->assign('entity', $app)
         </table>
     </div>
     <div class="related">
-        <h4><?= __('Related App Users') ?></h4>
-        <?php if (!empty($app->app_users)) : ?>
+        <h4><?= __('Related Customers') ?></h4>
+        <?php if (!empty($app->customers)) : ?>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <tr>
@@ -99,24 +99,24 @@ $this->assign('entity', $app)
                         <th scope="col"><?= __('Deleted') ?></th>
                         <th scope="col" class="actions"><?= __('Actions') ?></th>
                     </tr>
-                    <?php foreach ($app->app_users as $appUsers) : ?>
+                    <?php foreach ($app->customers as $customers) : ?>
                         <tr>
-                            <td><?= h($appUsers->id) ?></td>
-                            <td><?= h($appUsers->app_id) ?></td>
-                            <td><?= h($appUsers->identifier) ?></td>
-                            <td><?= h($appUsers->name) ?></td>
-                            <td><?= h($appUsers->meta) ?></td>
-                            <td><?= h($appUsers->created) ?></td>
-                            <td><?= h($appUsers->modified) ?></td>
-                            <td><?= h($appUsers->deleted) ?></td>
+                            <td><?= h($customers->id) ?></td>
+                            <td><?= h($customers->app_id) ?></td>
+                            <td><?= h($customers->identifier) ?></td>
+                            <td><?= h($customers->name) ?></td>
+                            <td><?= h($customers->meta) ?></td>
+                            <td><?= h($customers->created) ?></td>
+                            <td><?= h($customers->modified) ?></td>
+                            <td><?= h($customers->deleted) ?></td>
                             <td class="actions">
-                                <?= $this->Html->link(__('View'), ['controller' => 'AppUsers', 'action' =>
-                                    'view', $appUsers->id], ['class' => 'btn btn-secondary']) ?>
-                                <?= $this->Html->link(__('Edit'), ['controller' => 'AppUsers', 'action' =>
-                                    'edit', $appUsers->id], ['class' => 'btn btn-secondary']) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'AppUsers',
-                                    'action' => 'delete', $appUsers->id], ['confirm' => __('Are you sure you want to delete
-                            # {0}?', $appUsers->id), 'class' => 'btn btn-danger']) ?>
+                                <?= $this->Html->link(__('View'), ['controller' => 'Customers', 'action' =>
+                                    'view', $customers->id], ['class' => 'btn btn-secondary']) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'Customers', 'action' =>
+                                    'edit', $customers->id], ['class' => 'btn btn-secondary']) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Customers',
+                                    'action' => 'delete', $customers->id], ['confirm' => __('Are you sure you want to delete
+                            # {0}?', $customers->id), 'class' => 'btn btn-danger']) ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -132,7 +132,7 @@ $this->assign('entity', $app)
                     <tr>
                         <th scope="col"><?= __('Id') ?></th>
                         <th scope="col"><?= __('App Id') ?></th>
-                        <th scope="col"><?= __('App User Id') ?></th>
+                        <th scope="col"><?= __('Customer Id') ?></th>
                         <th scope="col"><?= __('Type') ?></th>
                         <th scope="col"><?= __('Title') ?></th>
                         <th scope="col"><?= __('Body') ?></th>
@@ -146,7 +146,7 @@ $this->assign('entity', $app)
                         <tr>
                             <td><?= h($feedbacks->id) ?></td>
                             <td><?= h($feedbacks->app_id) ?></td>
-                            <td><?= h($feedbacks->app_user_id) ?></td>
+                            <td><?= h($feedbacks->customer_id) ?></td>
                             <td><?= h($feedbacks->type) ?></td>
                             <td><?= h($feedbacks->title) ?></td>
                             <td><?= h($feedbacks->body) ?></td>

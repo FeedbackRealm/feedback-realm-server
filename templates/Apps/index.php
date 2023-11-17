@@ -26,7 +26,7 @@ $this->assign('title', 'Apps');
             <th scope="col"><?= $this->Paginator->sort('description') ?></th>
             <th scope="col"><?= $this->Paginator->sort('user_id', 'Creator') ?></th>
             <th scope="col"><?= $this->Paginator->sort('app_member_count', 'Members') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('app_user_count', 'Users') ?></th>
+            <th scope="col"><?= $this->Paginator->sort('customer_count', 'Users') ?></th>
             <th scope="col"><?= $this->Paginator->sort('feedback_count', 'Feedbacks') ?></th>
             <th scope="col"><?= $this->Paginator->sort('created') ?></th>
             <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -47,7 +47,7 @@ $this->assign('title', 'Apps');
                         ->id]) : '' ?>
                 </td>
                 <td><?= $this->Number->format($app->app_member_count) ?></td>
-                <td><?= $this->Number->format($app->app_user_count) ?></td>
+                <td><?= $this->Number->format($app->customer_count) ?></td>
                 <td><?= $this->Number->format($app->feedback_count) ?></td>
                 <td><?= h($app->created) ?></td>
                 <td class="actions">

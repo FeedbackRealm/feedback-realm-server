@@ -1,29 +1,29 @@
 <?php
 /**
  * @var AppView $this
- * @var AppUser $appUser
+ * @var Customer $customer
  * @var App[]|CollectionInterface $apps
  * @var Feedback[]|CollectionInterface $feedbacks
  */
 
 use App\Model\Entity\App;
-use App\Model\Entity\AppUser;
+use App\Model\Entity\Customer;
 use App\Model\Entity\Feedback;
 use App\View\AppView;
 use Cake\Collection\CollectionInterface;
 
 $this->extend('/layout/common/edit');
-$this->assign('title', 'App User');
+$this->assign('title', 'Customer');
 $this->assign('subTitle', 'edit');
-$this->assign('entity', $appUser)
+$this->assign('entity', $customer)
 ?>
 
-<div class="appUsers form content">
-    <?= $this->Form->create($appUser) ?>
+<div class="customers form content">
+    <?= $this->Form->create($customer) ?>
     <fieldset>
         <?php
         echo $this->Form->control('app_name', [
-            'value' => $appUser->app->name,
+            'value' => $customer->app->name,
             'label' => 'App',
             'disabled' => true,
             'readonly' => true,

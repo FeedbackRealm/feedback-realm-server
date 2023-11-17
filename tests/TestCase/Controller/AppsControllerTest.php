@@ -23,7 +23,7 @@ class AppsControllerTest extends TestCase
     protected $fixtures = [
         'app.Apps',
         'app.Users',
-        'app.AppUsers',
+        'app.Customers',
         'app.Feedbacks',
         'app.Notifications',
         'app.AppMembers',

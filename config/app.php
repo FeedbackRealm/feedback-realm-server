@@ -195,6 +195,7 @@ return [
             'vendor/cakephp/cakephp/src/Database/Connection.php',
             'vendor/composer/ClassLoader.php',
             'vendor/cakephp/migrations/src/Command/BakeMigrationDiffCommand.php',
+            'vendor/cakephp/bake/src/Command/TestCommand.php',
         ],
     ],
 

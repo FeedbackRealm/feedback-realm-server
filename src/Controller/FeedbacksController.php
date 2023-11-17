@@ -35,7 +35,7 @@ class FeedbacksController extends AppController
     {
         $query = $this->Feedbacks
             ->find()
-            ->contain(['Apps', 'AppUsers'])
+            ->contain(['Apps', 'Customers'])
             ->orderDesc('Feedbacks.created')
             ->innerJoin('AppMembers', [
                 'AppMembers.app_id = Feedbacks.app_id',
@@ -60,7 +60,7 @@ class FeedbacksController extends AppController
     public function view(?string $id = null)
     {
         $feedback = $this->Feedbacks->get($id, [
-            'contain' => ['Apps', 'AppUsers'],
+            'contain' => ['Apps', 'Customers'],
         ]);
         $this->Authorization->authorize($feedback);
         $this->set(compact('feedback'));

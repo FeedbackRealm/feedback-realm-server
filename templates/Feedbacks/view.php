@@ -29,12 +29,12 @@ $this->assign('entity', $feedback)
                 </td>
             </tr>
             <tr>
-                <th scope="row"><?= __('App User') ?></th>
-                <td><?= $feedback->has('app_user') ?
+                <th scope="row"><?= __('Customer') ?></th>
+                <td><?= $feedback->has('customer') ?
                         $this->Html->link(
-                            $feedback->app_user->name,
-                            ['controller' => 'AppUsers', 'action' => 'view', $feedback
-                                ->app_user->id]
+                            $feedback->customer->name,
+                            ['controller' => 'Customers', 'action' => 'view', $feedback
+                                ->customer->id]
                         ) : '' ?>
                 </td>
             </tr>
