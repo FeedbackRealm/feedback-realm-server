@@ -193,6 +193,8 @@ return [
         'ignoredDeprecationPaths' => [
             'templates/Pages/home_old.php',
             'vendor/cakephp/cakephp/src/Database/Connection.php',
+            'vendor/composer/ClassLoader.php',
+            'vendor/cakephp/migrations/src/Command/BakeMigrationDiffCommand.php',
         ],
     ],
 
