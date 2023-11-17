@@ -6,10 +6,10 @@ namespace App\Command;
 use App\Model\Entity\App;
 use App\Model\Entity\AppUser;
 use App\Model\Entity\User;
+use App\Model\Table\AppMembersTable;
 use App\Model\Table\AppsTable;
 use App\Model\Table\AppUsersTable;
 use App\Model\Table\FeedbacksTable;
-use App\Model\Table\TeamsTable;
 use App\Model\Table\UsersTable;
 use Cake\Command\Command;
 use Cake\Console\Arguments;
@@ -33,14 +33,14 @@ use Throwable;
  * @property UsersTable|Table $Users
  * @property AppsTable|Table $Apps
  * @property AppUsersTable|Table $AppUsers
- * @property TeamsTable|Table $Teams
+ * @property AppMembersTable|Table $AppMembers
  * @property FeedbacksTable|Table $Feedbacks
  */
 class SeedDataCommand extends Command
 {
     protected const NUM_USERS = 9;
     protected const NUM_APPS = 9;
-    protected const NUM_TEAMS = 4;
+    protected const NUM_APP_MEMBERS = 4;
     protected const NUM_APP_USERS = 15;
     protected const NUM_FEEDBACKS = 5;
 
@@ -60,7 +60,7 @@ class SeedDataCommand extends Command
         $this->Users = $this->fetchTable('Users');
         $this->Apps = $this->fetchTable('Apps');
         $this->AppUsers = $this->fetchTable('AppUsers');
-        $this->Teams = $this->fetchTable('Teams');
+        $this->AppMembers = $this->fetchTable('AppMembers');
         $this->Feedbacks = $this->fetchTable('Feedbacks');
     }
 
@@ -109,7 +109,7 @@ class SeedDataCommand extends Command
         $users = $this->makeUsers(self::NUM_USERS);
         $users[] = $this->makeDefaultUser();
         $apps = $this->makeApps(self::NUM_APPS, $users);
-        $this->makeTeams(self::NUM_TEAMS, $users, $apps);
+        $this->makeAppMembers(self::NUM_APP_MEMBERS, $users, $apps);
         $appUsers = $this->makeAppUsers(self::NUM_APP_USERS, $apps);
         $this->makeFeedbacks(self::NUM_FEEDBACKS, $appUsers);
     }
@@ -189,14 +189,14 @@ class SeedDataCommand extends Command
      * @return void
      * @throws Exception
      */
-    protected function makeTeams(int $count, array $users, array $apps): void
+    protected function makeAppMembers(int $count, array $users, array $apps): void
     {
-        $this->io->out('Creating teams');
+        $this->io->out('Creating app members');
         foreach ($apps as $app) {
             for ($i = 0; $i < $count; $i++) {
                 /** @var User $member */
                 $member = $this->Faker->randomElement($users);
-                $this->Teams->findOrCreate([
+                $this->AppMembers->findOrCreate([
                     'user_id' => $member->get('id'),
                     'app_id' => $app->get('id'),
                 ]);

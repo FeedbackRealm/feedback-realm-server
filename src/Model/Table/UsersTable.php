@@ -16,7 +16,7 @@ use Cake\Validation\Validator;
  *
  * @property AppsTable&HasMany $Apps
  * @property NotificationsTable&HasMany $Notifications
- * @property TeamsTable&HasMany $Teams
+ * @property AppMembersTable&HasMany $AppMembers
  * @method User newEmptyEntity()
  * @method User newEntity(array $data, array $options = [])
  * @method User[] newEntities(array $data, array $options = [])
@@ -56,7 +56,7 @@ class UsersTable extends TableBase
         $this->hasMany('Notifications', [
             'foreignKey' => 'user_id',
         ]);
-        $this->hasMany('Teams', [
+        $this->hasMany('AppMembers', [
             'foreignKey' => 'user_id',
         ]);
     }

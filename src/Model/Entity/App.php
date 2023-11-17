@@ -15,7 +15,7 @@ use Cake\ORM\Entity;
  * @property string|null $logo
  * @property string|null $description
  * @property string $auth_token
- * @property int|null $team_count
+ * @property int|null $app_member_count
  * @property int|null $app_user_count
  * @property int|null $feedback_count
  * @property FrozenTime|null $created
@@ -25,7 +25,7 @@ use Cake\ORM\Entity;
  * @property AppUser[] $app_users
  * @property Feedback[] $feedbacks
  * @property Notification[] $notifications
- * @property Team[] $teams
+ * @property AppMember[] $app_members
  */
 class App extends Entity
 {
@@ -44,7 +44,7 @@ class App extends Entity
         'logo' => true,
         'description' => true,
         'auth_token' => true,
-        'team_count' => true,
+        'app_member_count' => true,
         'app_user_count' => true,
         'feedback_count' => true,
         'created' => true,
@@ -53,6 +53,6 @@ class App extends Entity
         'app_users' => true,
         'feedbacks' => true,
         'notifications' => true,
-        'teams' => true,
+        'app_members' => true,
     ];
 }

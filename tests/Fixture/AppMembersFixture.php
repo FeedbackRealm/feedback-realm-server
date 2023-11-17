@@ -6,9 +6,9 @@ namespace App\Test\Fixture;
 use Cake\TestSuite\Fixture\TestFixture;
 
 /**
- * TeamsFixture
+ * AppMembersFixture
  */
-class TeamsFixture extends TestFixture
+class AppMembersFixture extends TestFixture
 {
     /**
      * Init method
@@ -23,8 +23,9 @@ class TeamsFixture extends TestFixture
                 'user_id' => 1,
                 'app_id' => 1,
                 'notification_count' => 1,
-                'created' => '2023-11-14 07:54:31',
-                'modified' => '2023-11-14 07:54:31',
+                'created' => '2023-11-17 05:13:12',
+                'modified' => '2023-11-17 05:13:12',
+                'deleted' => '2023-11-17 05:13:12',
             ],
         ];
         parent::init();

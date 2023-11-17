@@ -54,14 +54,14 @@ class UsersController extends AppController
                 ->matching('Users', fn(Query $q) => $q->where(['user_id' => $id])),
             ['scope' => 'notifications']
         );
-        $teams = $this->paginate(
-            $this->Users->Teams
+        $app_members = $this->paginate(
+            $this->Users->AppMembers
                 ->find()
                 ->limit(100)
                 ->matching('Users', fn(Query $q) => $q->where(['user_id' => $id])),
-            ['scope' => 'teams']
+            ['scope' => 'app_members']
         );
-        $this->set(compact('user', 'apps', 'notifications', 'teams'));
+        $this->set(compact('user', 'apps', 'notifications', 'app_members'));
     }
 
     /**

@@ -54,7 +54,7 @@ class NotificationsController extends AppController
     public function view(?string $id = null)
     {
         $notification = $this->Notifications->get($id, [
-            'contain' => ['Apps', 'Users', 'Teams'],
+            'contain' => ['Apps', 'Users', 'AppMembers'],
             'conditions' => [
                 'Notifications.user_id' => $this->getAuthUser()->id,
             ],

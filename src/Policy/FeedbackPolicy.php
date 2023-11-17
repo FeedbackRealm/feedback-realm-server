@@ -5,7 +5,7 @@ namespace App\Policy;
 
 use App\Model\Entity\Feedback;
 use App\Model\Entity\User;
-use App\Model\Table\TeamsTable;
+use App\Model\Table\AppMembersTable;
 use Authorization\IdentityInterface;
 
 /**
@@ -46,6 +46,6 @@ class FeedbackPolicy
      */
     public function canView(IdentityInterface $user, Feedback $feedback): bool
     {
-        return TeamsTable::isAppMember($user->id, $feedback->app_id);
+        return AppMembersTable::isAppMember($user->id, $feedback->app_id);
     }
 }

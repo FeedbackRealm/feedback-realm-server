@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Policy;
 
 use App\Model\Entity\User;
-use App\Model\Table\TeamsTable;
+use App\Model\Table\AppMembersTable;
 use Authorization\IdentityInterface;
 
 /**
@@ -33,6 +33,6 @@ class UserPolicy
      */
     public function canView(IdentityInterface $user, User $resource): bool
     {
-        return TeamsTable::isTeamMember($user->id, $resource->id);
+        return AppMembersTable::isTeamMember($user->id, $resource->id);
     }
 }

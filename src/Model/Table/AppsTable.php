@@ -23,7 +23,7 @@ use Cake\Validation\Validator;
  * @property AppUsersTable&HasMany $AppUsers
  * @property FeedbacksTable&HasMany $Feedbacks
  * @property NotificationsTable&HasMany $Notifications
- * @property TeamsTable&HasMany $Teams
+ * @property AppMembersTable&HasMany $AppMembers
  * @method App newEmptyEntity()
  * @method App newEntity(array $data, array $options = [])
  * @method App[] newEntities(array $data, array $options = [])
@@ -74,7 +74,7 @@ class AppsTable extends TableBase
         $this->hasMany('Notifications', [
             'foreignKey' => 'app_id',
         ]);
-        $this->hasMany('Teams', [
+        $this->hasMany('AppMembers', [
             'foreignKey' => 'app_id',
         ]);
     }
@@ -113,8 +113,8 @@ class AppsTable extends TableBase
             ->add('auth_token', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
-            ->nonNegativeInteger('team_count')
-            ->allowEmptyString('team_count');
+            ->nonNegativeInteger('app_member_count')
+            ->allowEmptyString('app_member_count');
 
         $validator
             ->nonNegativeInteger('app_user_count')
@@ -169,11 +169,11 @@ class AppsTable extends TableBase
     public function afterSave(EventInterface $event, App $entity, ArrayObject $options)
     {
         if ($entity->isNew()) {
-            $team = $this->Teams->newEntity([
+            $appMember = $this->AppMembers->newEntity([
                 'app_id' => $entity->id,
                 'user_id' => $entity->user_id,
             ]);
-            $this->Teams->saveOrFail($team);
+            $this->AppMembers->saveOrFail($appMember);
         }
     }
 }
