@@ -18,6 +18,7 @@ use Cake\Validation\Validator;
  *
  * @property AppsTable&BelongsTo $Apps
  * @property FeedbacksTable&HasMany $Feedbacks
+ * @property UsersTable&BelongsTo $LastUpdatedAuthor
  * @method Customer newEmptyEntity()
  * @method Customer newEntity(array $data, array $options = [])
  * @method Customer[] newEntities(array $data, array $options = [])
@@ -62,6 +63,12 @@ class CustomersTable extends TableBase
         $this->hasMany('Feedbacks', [
             'foreignKey' => 'customer_id',
         ]);
+        $this->belongsTo('LastUpdatedAuthor', [
+            'className' => 'Users',
+            'foreignKey' => 'last_updated_by',
+            'joinType' => 'left',
+            'propertyName' => 'last_updated_author',
+        ]);
     }
 
     /**
@@ -95,6 +102,10 @@ class CustomersTable extends TableBase
             ->allowEmptyString('feedback_count');
 
         $validator
+            ->nonNegativeInteger('last_updated_by')
+            ->allowEmptyString('last_updated_by');
+
+        $validator
             ->dateTime('deleted')
             ->allowEmptyDateTime('deleted');
 
@@ -111,6 +122,9 @@ class CustomersTable extends TableBase
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn('app_id', 'Apps'), ['errorField' => 'app_id']);
+        $rules->add($rules->existsIn('last_updated_by', 'LastUpdatedAuthor'), [
+            'errorField' => 'last_updated_by',
+        ]);
 
         return $rules;
     }
