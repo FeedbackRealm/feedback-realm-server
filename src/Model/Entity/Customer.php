@@ -11,6 +11,7 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property int $app_id
+ * @property int|null $last_updated_by
  * @property string $identifier
  * @property string|null $name
  * @property string|null $meta
@@ -21,6 +22,7 @@ use Cake\ORM\Entity;
  *
  * @property App $app
  * @property Feedback[] $feedbacks
+ * @property User|null $last_updated_author
  */
 class Customer extends Entity
 {
@@ -35,6 +37,7 @@ class Customer extends Entity
      */
     protected $_accessible = [
         'app_id' => true,
+        'last_updated_by' => true,
         'identifier' => true,
         'name' => true,
         'meta' => true,
@@ -44,5 +47,6 @@ class Customer extends Entity
         'deleted' => true,
         'app' => true,
         'feedbacks' => true,
+        'last_updated_author' => true,
     ];
 }
