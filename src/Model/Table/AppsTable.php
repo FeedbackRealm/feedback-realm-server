@@ -12,7 +12,9 @@ use Cake\ORM\Association\BelongsTo;
 use Cake\ORM\Association\HasMany;
 use Cake\ORM\Behavior\CounterCacheBehavior;
 use Cake\ORM\Behavior\TimestampBehavior;
+use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
+use Cake\Routing\Router;
 use Cake\Utility\Text;
 use Cake\Validation\Validator;
 
@@ -76,6 +78,66 @@ class AppsTable extends TableBase
         ]);
         $this->hasMany('AppMembers', [
             'foreignKey' => 'app_id',
+        ]);
+
+        $this->addBehavior('Notifiable', [
+            'prepareNotificationFunc' => function (App $entity) {
+                return $this->Notifications->newEntity([
+                    'app_id' => $entity->id,
+                ]);
+            },
+            'onUpdate' => [
+                'titleFunc' => function (App $entity) {
+                    return sprintf('The app %s was updated', $entity->name);
+                },
+                'bodyFunc' => function (App $entity) {
+                    $user = $this->Users->get($entity->user_id);
+
+                    $title = sprintf(
+                        '%s made changes to the app %s.',
+                        $user->name,
+                        $entity->name
+                    );
+
+                    $url = Router::url([
+                        'controller' => 'Apps',
+                        'action' => 'view',
+                        $entity->id,
+                    ], true);
+
+                    return sprintf('<a href="%s">%s</a>', $url, $title);
+                },
+                'userQueryFunc' => function (App $entity, Query $query) {
+                    return $query->where([
+                        'Users.id <>' => $entity->user_id,
+                    ])->innerJoinWith('AppMembers', fn(Query $q) => $q->where([
+                        'AppMembers.app_id' => $entity->id,
+                    ]));
+                },
+                'notificationType' => 'info',
+            ],
+            'onDelete' => [
+                'titleFunc' => function (App $entity) {
+                    return sprintf('The app %s was deleted', $entity->name);
+                },
+                'bodyFunc' => function (App $entity) {
+                    $user = $this->Users->get($entity->user_id);
+
+                    return sprintf(
+                        '%s deleted the app  %s.',
+                        $user->name,
+                        $entity->name
+                    );
+                },
+                'userQueryFunc' => function (App $entity, Query $query) {
+                    return $query->where([
+                        'Users.id <>' => $entity->user_id,
+                    ])->innerJoinWith('AppMembers', fn(Query $q) => $q->where([
+                        'AppMembers.user_id' => $entity->user_id,
+                    ]));
+                },
+                'notificationType' => 'danger',
+            ],
         ]);
     }
 

@@ -3,13 +3,16 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Model\Entity\Customer;
 use App\Model\Entity\Feedback;
 use Cake\Datasource\EntityInterface;
 use Cake\Datasource\ResultSetInterface;
 use Cake\ORM\Association\BelongsTo;
 use Cake\ORM\Behavior\CounterCacheBehavior;
 use Cake\ORM\Behavior\TimestampBehavior;
+use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
+use Cake\Routing\Router;
 use Cake\Validation\Validator;
 
 /**
@@ -62,6 +65,43 @@ class FeedbacksTable extends TableBase
         $this->belongsTo('Customers', [
             'foreignKey' => 'customer_id',
             'joinType' => 'INNER',
+        ]);
+
+        $this->addBehavior('Notifiable', [
+            'prepareNotificationFunc' => function (Feedback $entity) {
+                return $this->Apps->Users->Notifications->newEntity([
+                    'app_id' => $entity->app_id,
+                ]);
+            },
+            'onCreate' => [
+                'titleFunc' => function (Feedback $entity) {
+                    $app = $this->Apps->get($entity->app_id);
+
+                    return sprintf('A %s Feedback was left for %s', $entity->type, $app->name);
+                },
+                'bodyFunc' => function (Feedback $entity) {
+                    $title = sprintf(
+                        'Customer %s has a new %s Feedback: %s.',
+                        $entity->customer_id,
+                        $entity->type,
+                        $entity->title,
+                    );
+
+                    $url = Router::url([
+                        'controller' => 'Feedbacks',
+                        'action' => 'view',
+                        $entity->id,
+                    ], true);
+
+                    return sprintf('<a href="%s">%s</a>', $url, $title);
+                },
+                'userQueryFunc' => function (Feedback $entity, Query $query) {
+                    return $query->innerJoinWith('AppMembers', fn(Query $q) => $q->where([
+                        'AppMembers.app_id' => $entity->app_id,
+                    ]));
+                },
+                'notificationType' => 'info',
+            ],
         ]);
     }
 
