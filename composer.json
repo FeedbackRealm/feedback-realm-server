@@ -19,7 +19,7 @@
         "friendsofcake/bootstrap-ui": "^4.0",
         "mobiledetect/mobiledetectlib": "^3.74",
         "muffin/trash": "^3.1",
-        "predis/predis": "^1"
+        "predis/predis": "^2"
     },
     "require-dev": {
         "cakephp/bake": "^2.8",
