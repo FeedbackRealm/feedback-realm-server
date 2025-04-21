@@ -618,16 +618,16 @@
         },
         {
             "name": "enqueue/dsn",
-            "version": "0.10.19",
+            "version": "0.10.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-enqueue/dsn.git",
-                "reference": "f4991fe46dd01477deb566727170341b255e8479"
+                "reference": "83193ee9e3f83d2becc66f748bb5bec232281236"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-enqueue/dsn/zipball/f4991fe46dd01477deb566727170341b255e8479",
-                "reference": "f4991fe46dd01477deb566727170341b255e8479",
+                "url": "https://api.github.com/repos/php-enqueue/dsn/zipball/83193ee9e3f83d2becc66f748bb5bec232281236",
+                "reference": "83193ee9e3f83d2becc66f748bb5bec232281236",
                 "shasum": ""
             },
             "require": {
@@ -667,7 +667,7 @@
                 "issues": "https://github.com/php-enqueue/enqueue-dev/issues",
                 "source": "https://github.com/php-enqueue/enqueue-dev"
             },
-            "time": "2023-03-23T09:50:55+00:00"
+            "time": "2025-01-17T21:33:18+00:00"
         },
         {
             "name": "enqueue/enqueue",
@@ -888,16 +888,16 @@
         },
         {
             "name": "enqueue/redis",
-            "version": "0.10.19",
+            "version": "0.10.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-enqueue/redis.git",
-                "reference": "7aa6f64dd7fbd106aa3695d4fbd6ef5d579a5411"
+                "reference": "170b41db2c707d6e12b596eb43887e0c4e8ee47b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-enqueue/redis/zipball/7aa6f64dd7fbd106aa3695d4fbd6ef5d579a5411",
-                "reference": "7aa6f64dd7fbd106aa3695d4fbd6ef5d579a5411",
+                "url": "https://api.github.com/repos/php-enqueue/redis/zipball/170b41db2c707d6e12b596eb43887e0c4e8ee47b",
+                "reference": "170b41db2c707d6e12b596eb43887e0c4e8ee47b",
                 "shasum": ""
             },
             "require": {
@@ -948,7 +948,7 @@
                 "issues": "https://github.com/php-enqueue/enqueue-dev/issues",
                 "source": "https://github.com/php-enqueue/enqueue-dev"
             },
-            "time": "2023-05-20T05:16:02+00:00"
+            "time": "2025-01-17T21:33:18+00:00"
         },
         {
             "name": "enqueue/simple-client",
@@ -2090,16 +2090,16 @@
         },
         {
             "name": "queue-interop/queue-interop",
-            "version": "0.8.1",
+            "version": "0.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/queue-interop/queue-interop.git",
-                "reference": "117043fd38490f8b5516622cd4b697b33a89ce2b"
+                "reference": "752db86fee6d9fd11d2e34191afe212c64b96fa7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/queue-interop/queue-interop/zipball/117043fd38490f8b5516622cd4b697b33a89ce2b",
-                "reference": "117043fd38490f8b5516622cd4b697b33a89ce2b",
+                "url": "https://api.github.com/repos/queue-interop/queue-interop/zipball/752db86fee6d9fd11d2e34191afe212c64b96fa7",
+                "reference": "752db86fee6d9fd11d2e34191afe212c64b96fa7",
                 "shasum": ""
             },
             "require": {
@@ -2135,9 +2135,9 @@
             ],
             "support": {
                 "issues": "https://github.com/queue-interop/queue-interop/issues",
-                "source": "https://github.com/queue-interop/queue-interop/tree/0.8.1"
+                "source": "https://github.com/queue-interop/queue-interop/tree/0.8.2"
             },
-            "time": "2020-12-21T13:14:51+00:00"
+            "time": "2025-02-21T08:24:49+00:00"
         },
         {
             "name": "ramsey/collection",
@@ -2286,11 +2286,11 @@
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-main": "4.x-dev"
-                },
                 "captainhook": {
                     "force-install": true
+                },
+                "branch-alias": {
+                    "dev-main": "4.x-dev"
                 }
             },
             "autoload": {
@@ -2724,20 +2724,20 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.28.0",
+            "version": "v1.31.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "ea208ce43cbb04af6867b4fdddb1bdbf84cc28cb"
+                "reference": "a3cc8b044a6ea513310cbd48ef7333b384945638"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/ea208ce43cbb04af6867b4fdddb1bdbf84cc28cb",
-                "reference": "ea208ce43cbb04af6867b4fdddb1bdbf84cc28cb",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/a3cc8b044a6ea513310cbd48ef7333b384945638",
+                "reference": "a3cc8b044a6ea513310cbd48ef7333b384945638",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1"
+                "php": ">=7.2"
             },
             "provide": {
                 "ext-ctype": "*"
@@ -2747,12 +2747,9 @@
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-main": "1.28-dev"
-                },
                 "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
+                    "url": "https://github.com/symfony/polyfill",
+                    "name": "symfony/polyfill"
                 }
             },
             "autoload": {
@@ -2786,7 +2783,7 @@
                 "portable"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.28.0"
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.31.0"
             },
             "funding": [
                 {
@@ -2802,7 +2799,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-26T09:26:14+00:00"
+            "time": "2024-09-09T11:45:10+00:00"
         },
         {
             "name": "symfony/polyfill-intl-grapheme",
@@ -3133,29 +3130,26 @@
         },
         {
             "name": "symfony/polyfill-php80",
-            "version": "v1.28.0",
+            "version": "v1.31.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php80.git",
-                "reference": "6caa57379c4aec19c0a12a38b59b26487dcfe4b5"
+                "reference": "60328e362d4c2c802a54fcbf04f9d3fb892b4cf8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/6caa57379c4aec19c0a12a38b59b26487dcfe4b5",
-                "reference": "6caa57379c4aec19c0a12a38b59b26487dcfe4b5",
+                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/60328e362d4c2c802a54fcbf04f9d3fb892b4cf8",
+                "reference": "60328e362d4c2c802a54fcbf04f9d3fb892b4cf8",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1"
+                "php": ">=7.2"
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-main": "1.28-dev"
-                },
                 "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
+                    "url": "https://github.com/symfony/polyfill",
+                    "name": "symfony/polyfill"
                 }
             },
             "autoload": {
@@ -3196,7 +3190,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php80/tree/v1.28.0"
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.31.0"
             },
             "funding": [
                 {
@@ -3212,33 +3206,30 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-26T09:26:14+00:00"
+            "time": "2024-09-09T11:45:10+00:00"
         },
         {
             "name": "symfony/polyfill-php81",
-            "version": "v1.28.0",
+            "version": "v1.31.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php81.git",
-                "reference": "7581cd600fa9fd681b797d00b02f068e2f13263b"
+                "reference": "4a4cfc2d253c21a5ad0e53071df248ed48c6ce5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php81/zipball/7581cd600fa9fd681b797d00b02f068e2f13263b",
-                "reference": "7581cd600fa9fd681b797d00b02f068e2f13263b",
+                "url": "https://api.github.com/repos/symfony/polyfill-php81/zipball/4a4cfc2d253c21a5ad0e53071df248ed48c6ce5c",
+                "reference": "4a4cfc2d253c21a5ad0e53071df248ed48c6ce5c",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1"
+                "php": ">=7.2"
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-main": "1.28-dev"
-                },
                 "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
+                    "url": "https://github.com/symfony/polyfill",
+                    "name": "symfony/polyfill"
                 }
             },
             "autoload": {
@@ -3275,7 +3266,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php81/tree/v1.28.0"
+                "source": "https://github.com/symfony/polyfill-php81/tree/v1.31.0"
             },
             "funding": [
                 {
@@ -3291,7 +3282,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-26T09:26:14+00:00"
+            "time": "2024-09-09T11:45:10+00:00"
         },
         {
             "name": "symfony/service-contracts",
@@ -8033,5 +8024,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
